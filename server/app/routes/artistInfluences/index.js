@@ -13,8 +13,8 @@ router.get('/:artistName', function(req, res, next) {
     var $ = cheerio.load(body);
       var divs = $('div.title.multiline');
     	$(divs).each(function(i, elem){
-        console.log(elem.children[0].data.replace(/\r\n\t/g,"-"));
-      	influences.push(elem.innerHTML);
+        var nameCleaned = elem.children[0].data.replace(/(\t|\n|\r)/gm,"");
+      	influences.push(nameCleaned);
     	});
 	  res.json(influences);
   });
