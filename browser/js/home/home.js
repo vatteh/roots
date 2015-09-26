@@ -7,9 +7,9 @@ app.config(function ($stateProvider) {
 
 app.controller('HomeCtrl', function ($scope, CurrentTopArtists) {
 
-    $scope.currentTopArtists = CurrentTopArtists.getCurrentTopArtists()
+    CurrentTopArtists.getCurrentTopArtists()
     	.then(function(response) {
-    	    return response;
+    	    $scope.currentTopArtists = response;
     	})
     	.catch(function(err) {
     	    return err;
