@@ -1,3 +1,6 @@
 <section id="home" ng-controller="HomeCtrl">
-    {{currentTopArtists}}
+	<div ng-repeat="artist in currentTopArtists">
+		{{artist.name}}
+		<img src="{{artist.images[0].url}}"></img>
+	</div>
 </section>
