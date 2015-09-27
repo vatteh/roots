@@ -6,6 +6,8 @@ var cheerio = require('cheerio');
 
 router.get('/:artistName', function(req, res, next) {
 	
+  console.log("SEARCHING FOR ARTIST INFLUENCES")
+
 	var url = 'http://www.mtv.com/artists/' + req.params.artistName.replace(/ /g,"-") + '/related-artists/?filter=influencedBy';
 
   request(url, function(err, resp, body){

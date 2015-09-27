@@ -50,7 +50,6 @@ router.get('/top-artists', function(req, res) {
     	    	console.log('Failed to make a Spotify request');
 	    	} else {
     	    	//Return array of artists
-    	    	console.log(sixTopArtists);
     	    	res.json(sixTopArtists);
 	    	}
 	    })
