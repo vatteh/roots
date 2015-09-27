@@ -5,18 +5,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function ($scope, CurrentTopArtists, ArtistInfluences) {
-
-    $scope.getArtistInfluences = function(artistName) {
-        ArtistInfluences.getArtistInfluences(artistName)
-            .then(function(response) {
-                console.log("Got influences for " + artistName + ":" + response)
-            })
-            .catch(function(err) {
-                return err;
-            })
-    }
-
+app.controller('HomeCtrl', function ($rootScope, $scope, $state, CurrentTopArtists, ArtistInfluences) {
     CurrentTopArtists.getCurrentTopArtists()
     	.then(function(response) {
     	    $scope.currentTopArtists = response;
@@ -26,6 +15,16 @@ app.controller('HomeCtrl', function ($scope, CurrentTopArtists, ArtistInfluences
     	});
 
     	$scope.startDiscovery = function(artistName) {
-    		$state.go('discover-1', { param: [artistName] });
+    		// ArtistInfluences.getArtistInfluences will get all influences that will be seen for the artist selected in the front page.
+    		ArtistInfluences.getArtistInfluences(artistName)
+    		    .then(function(influenceTimeLine) {
+    		    	$rootScope.influenceTimeLine = influenceTimeLine;
+    		        console.log("Got influence time line for " + artistName + ":" + influenceTimeLine);
+    				$state.go('discover-1');
+    		    })
+    		    .catch(function(err) {
+    		        return err;
+    		    })
+    		    
     	};
 });
