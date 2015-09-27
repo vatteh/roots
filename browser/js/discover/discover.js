@@ -30,6 +30,12 @@ app.config(function ($stateProvider) {
         controller: function($rootScope, $scope, $state, ArtistInfluences, SpotifyInfo) {
     		$scope.pageNumber = 2;
     		$scope.pageClass = 'discover-2';
+
+        //Get Artist Info
+        SpotifyInfo.searchForArtist($rootScope.currArtist).then(function(data) {
+          $scope.artistData = data
+        });
+
     		$scope.transitionTo = function() {
                 ArtistInfluences.getArtistInfluences($rootScope.currArtist).then(function(artist) {
                    $rootScope.currArtist = artist;
@@ -50,6 +56,12 @@ app.config(function ($stateProvider) {
         controller: function($rootScope, $scope, $state, ArtistInfluences, SpotifyInfo) {
     		$scope.pageNumber = 3;
     		$scope.pageClass = 'discover-3';
+
+        //Get Artist Info
+        SpotifyInfo.searchForArtist($rootScope.currArtist).then(function(data) {
+          $scope.artistData = data
+        });
+
     		$scope.transitionTo = function() {
                 ArtistInfluences.getArtistInfluences($rootScope.currArtist).then(function(artist) {
                    $rootScope.currArtist = artist;
@@ -70,6 +82,12 @@ app.config(function ($stateProvider) {
         controller: function($rootScope, $scope, $state, ArtistInfluences, SpotifyInfo) {
     		$scope.pageNumber = 4;
     		$scope.pageClass = 'discover-4';
+
+        //Get Artist Info
+        SpotifyInfo.searchForArtist($rootScope.currArtist).then(function(data) {
+          $scope.artistData = data
+        });
+
     		$scope.transitionTo = function() {
                 ArtistInfluences.getArtistInfluences($rootScope.currArtist).then(function(artist) {
                    $rootScope.currArtist = artist;
@@ -90,6 +108,12 @@ app.config(function ($stateProvider) {
         controller: function($rootScope, $scope, $state, ArtistInfluences, SpotifyInfo) {
     		$scope.pageNumber = 5;
     		$scope.pageClass = 'discover-5';
+
+        //Get Artist Info
+        SpotifyInfo.searchForArtist($rootScope.currArtist).then(function(data) {
+          $scope.artistData = data
+        });
+
     		$scope.transitionTo = function() {
                 ArtistInfluences.getArtistInfluences($rootScope.currArtist).then(function(artist) {
                    $rootScope.currArtist = artist;
@@ -130,6 +154,12 @@ app.config(function ($stateProvider) {
         controller: function($rootScope, $scope, $state, ArtistInfluences, SpotifyInfo) {
     		$scope.pageNumber = 7;
     		$scope.pageClass = 'discover-7';
+
+        //Get Artist Info
+        SpotifyInfo.searchForArtist($rootScope.currArtist).then(function(data) {
+          $scope.artistData = data
+        });
+
     		$scope.transitionTo = function() {
                 ArtistInfluences.getArtistInfluences($rootScope.currArtist).then(function(artist) {
                    $rootScope.currArtist = artist;
@@ -150,6 +180,12 @@ app.config(function ($stateProvider) {
         controller: function($rootScope, $scope, $state, ArtistInfluences, SpotifyInfo) {
     		$scope.pageNumber = 8;
     		$scope.pageClass = 'discover-8';
+
+        //Get Artist Info
+        SpotifyInfo.searchForArtist($rootScope.currArtist).then(function(data) {
+          $scope.artistData = data
+        });
+
     		$scope.transitionTo = function() {
                 ArtistInfluences.getArtistInfluences($rootScope.currArtist).then(function(artist) {
                    $rootScope.currArtist = artist;
@@ -170,6 +206,12 @@ app.config(function ($stateProvider) {
         controller: function($rootScope, $scope, $state, ArtistInfluences, SpotifyInfo) {
     		$scope.pageNumber = 9;
     		$scope.pageClass = 'discover-9';
+
+        //Get Artist Info
+        SpotifyInfo.searchForArtist($rootScope.currArtist).then(function(data) {
+          $scope.artistData = data
+        });
+
     		$scope.transitionTo = function() {
                 ArtistInfluences.getArtistInfluences($rootScope.currArtist).then(function(artist) {
                    $rootScope.currArtist = artist;
@@ -190,6 +232,12 @@ app.config(function ($stateProvider) {
         controller: function($rootScope, $scope, $state, ArtistInfluences) {
     		$scope.pageNumber = 10;
     		$scope.pageClass = 'discover-10';
+
+        //Get Artist Info
+        SpotifyInfo.searchForArtist($rootScope.currArtist).then(function(data) {
+          $scope.artistData = data
+        });
+
     		$scope.transitionTo = function() {
                 ArtistInfluences.getArtistInfluences($rootScope.currArtist).then(function(artist) {
                    $rootScope.currArtist = artist;
