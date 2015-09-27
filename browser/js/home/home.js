@@ -8,12 +8,13 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function ($scope, CurrentTopArtists, ArtistInfluences) {
+app.controller('HomeCtrl', function ($scope, $state, CurrentTopArtists, ArtistInfluences) {
 
     $scope.getArtistInfluences = function(artistName) {
         ArtistInfluences.getArtistInfluences(artistName)
-            .then(function(response) {
-                console.log("Got influences for " + artistName + ":" + response)
+            .then(function(similarArtists) {
+                console.log("Got influences for " + artistName + ":" + similarArtists)
+                $state.go("discover-1", {"similarArtists": similarArtists})
             })
             .catch(function(err) {
                 return err;
