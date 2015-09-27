@@ -36,9 +36,13 @@ router.get('/top-artists', function(req, res) {
 	    	var artistId = getArtistIdFromSpotifyURI(track.artist_url)
 	    	request('https://api.spotify.com/v1/artists/' + artistId, function (error, response, body) {
 	    	  if (!error && response.statusCode == 200) {
-	    	  	var parsedBody = JSON.parse(body);
-	    	  	sixTopArtists.push(parsedBody);
-	    	  	callback();
+		    	var parsedBody = JSON.parse(body);
+	    	  	
+	    	  	if(sixTopArtists.indexOf(parsedBody) === -1) {
+		    	  	sixTopArtists.push(parsedBody);
+	    	  	}
+	    	  	
+		    	callback();
 	    	  }
 	    	})
 	    }
