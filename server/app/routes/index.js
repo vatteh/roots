@@ -19,10 +19,9 @@ router.get('/top-artists', function(req, res) {
 
 	    var sixTopTracks = [];
 
-	    for (var i = 0; i < 6; i++) {
+	    for (var i = 0; i < 30; i++) {
 	    	sixTopTracks.push(topTracks[i])
 	    }
-	    console.log(sixTopTracks);
 
 	    //Loop through artist array and make request for each artist from Spotify
 
@@ -38,7 +37,6 @@ router.get('/top-artists', function(req, res) {
 	    	request('https://api.spotify.com/v1/artists/' + artistId, function (error, response, body) {
 	    	  if (!error && response.statusCode == 200) {
 	    	  	var parsedBody = JSON.parse(body);
-	    	    console.log(parsedBody); // Show the HTML for the Google homepage. 
 	    	  	sixTopArtists.push(parsedBody);
 	    	  	callback();
 	    	  }
@@ -52,7 +50,6 @@ router.get('/top-artists', function(req, res) {
     	    	console.log('Failed to make a Spotify request');
 	    	} else {
     	    	//Return array of artists
-    	    	console.log(sixTopArtists);
     	    	res.json(sixTopArtists);
 	    	}
 	    })
