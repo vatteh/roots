@@ -10,9 +10,9 @@
 	<h2>Song Name: {{artistData.artistFirstTopTrack.name}}</h2>
 
 	
-	<img style="height:450px;" ng-src="{{artistData.artistImageURL}}" />
+	<img style="height:450px; border-width: 5px; border-style: solid; border-color: white" ng-src="{{artistData.artistImageURL}}" />
 	<div class="row" style='padding: 10px;'>
-		<a ng-click = "transitionTo()" class="btn btn-success btn-lg">Next</a>
+		<a ng-click = "transitionTo()" class="btn btn-success btn-lg">Who Influenced {{currArtist}}?</a>
 		<a ng-href="home" class="btn btn-warning btn-lg">Home</a>
 	</div>
 
