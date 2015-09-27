@@ -1,4 +1,5 @@
 #home {
+
   fullstack-logo {
     padding-top: 30px;
     width: 150px;
@@ -7,6 +8,20 @@
   h1 {
     margin-top: 40px;
     text-align: center;
+  }
+  .resize {
+  	max-width:550px;
+  	height: auto;
+  	width: auto;
+  }
+
+  .masonry-brick {
+      margin: 1em;
+      display: none;
+  }
+
+  .masonry-brick.loaded {
+      display: block;
   }
 }
 

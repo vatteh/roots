@@ -19,7 +19,7 @@ router.get('/top-artists', function(req, res) {
 
 	    var sixTopTracks = [];
 
-	    for (var i = 0; i < 6; i++) {
+	    for (var i = 0; i < 30; i++) {
 	    	sixTopTracks.push(topTracks[i])
 	    }
 

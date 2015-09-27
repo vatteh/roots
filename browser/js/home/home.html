@@ -1,6 +1,7 @@
 <section id="home" ng-controller="HomeCtrl">
-	<div ng-repeat="artist in currentTopArtists">
-		{{artist.name}}
-		<img src="{{artist.images[0].url}}"></img>
+	<div masonry>
+	    <div class="masonry-brick" ng-repeat="artist in currentTopArtists">
+	        <img class="resize" ng-src="{{artist.images[0].url}}">
+	    </div>
 	</div>
 </section>
