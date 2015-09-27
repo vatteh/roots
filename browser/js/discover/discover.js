@@ -1,9 +1,9 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('discover-1', {
-        url: '/discover-1',
+        url: '/discover-1/',
         templateUrl: 'js/discover/discover.html',
-        controller: function($scope) {
-    		$scope.artist = 'discover1';
+        controller: function($scope, $stateParams, $state) {
+    		$scope.artist = $stateParams.similarArtists;
     		$scope.pageNumber = 1;
 		}
     });
