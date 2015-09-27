@@ -7,3 +7,14 @@ app.config(function ($stateProvider) {
         }
     });
 });
+
+app.controller('HomeCtrl', function ($scope, CurrentTopArtists) {
+
+    CurrentTopArtists.getCurrentTopArtists()
+    	.then(function(response) {
+    	    $scope.currentTopArtists = response;
+    	})
+    	.catch(function(err) {
+    	    return err;
+    	})
+});
