@@ -26,7 +26,7 @@ router.get('/searchForArtist/:artistName', function(req, res) {
     		//Take artistId an get top tracks
     		request("https://api.spotify.com/v1/artists/" + artistId + "/top-tracks?country=US", function (error, response, body) {
     		  if (!error && response.statusCode == 200) {
-    		    // console.log("ARTIST TOP TRACKS: ", JSON.parse(body))
+    		    console.log("ARTIST TOP TRACKS: ", JSON.parse(body))
     		    var artistFirstTopTrack = JSON.parse(body).tracks[0]
     				res.send({
     					artistId: artistId,
