@@ -1,11 +1,19 @@
 <div class="page {{ pageClass }}">
-	<h1>Current Artist: {{currArtist}}</h1>
 
+<!-- 	<audio autoplay controls>  
+	   <source ng-src="{{recording}}" />  
+	</audio>  -->
+
+	<a ng-click = "transitionTo()" class="btn btn-success btn-lg">Next</a>
+	<a ng-href="home" class="btn btn-warning btn-lg">Home</a>
+
+	<h1>Influenced By: {{currArtist}}</h1>
+
+	<h2>Song Name: {{artistData.artistFirstTopTrack.name}}</h2>
 	<img ng-src="{{artistData.artistImageURL}}" />
 
 	{{artistData}}
 
-	<a ng-click = "transitionTo()" class="btn btn-success btn-lg">Next</a>
-	<a ng-href="home" class="btn btn-warning btn-lg">Home</a>
+	<iframe width="0" height="0" ng-src="{{recording}}" frameborder="0">
 </div>
 
