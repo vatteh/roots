@@ -4,16 +4,18 @@
 	   <source ng-src="{{recording}}" />  
 	</audio>  -->
 
-	<a ng-click = "transitionTo()" class="btn btn-success btn-lg">Next</a>
-	<a ng-href="home" class="btn btn-warning btn-lg">Home</a>
 
 	<h1>Influenced By: {{currArtist}}</h1>
 
 	<h2>Song Name: {{artistData.artistFirstTopTrack.name}}</h2>
-	<img ng-src="{{artistData.artistImageURL}}" />
 
-	{{artistData}}
+	
+	<img style="height:450px;" ng-src="{{artistData.artistImageURL}}" />
+	<div class="row" style='padding: 10px;'>
+		<a ng-click = "transitionTo()" class="btn btn-success btn-lg">Next</a>
+		<a ng-href="home" class="btn btn-warning btn-lg">Home</a>
+	</div>
 
-	<iframe width="0" height="0" ng-src="{{recording}}" frameborder="0">
+	<iframe width="0" height="0" class="visibility: none" ng-src="{{recording}}" frameborder="0">
 </div>
 
