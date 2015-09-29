@@ -2,7 +2,6 @@ app.factory('SpotifyInfo', function ($http) {
 
     return {
         searchForArtist: function(artistName) {
-            console.log("SEARCHING!!!")
             return $http.get('/api/searchForArtist/' + artistName)
                 .then(function(response) {
                     return response.data;

@@ -50,7 +50,11 @@ app.factory('ArtistInfluences', function ($http) {
         getArtistInfluences: function(artistName) {
             return $http.get('/api/artistInfluences/' + artistName)
                 .then(function(response) {
-                    return response.data[Math.floor(Math.random()*response.data.length)];
+                    if (response.data !== null) {
+                        return response.data[Math.floor(Math.random()*response.data.length)];
+                    } else {
+                        return null;
+                    }
                 })
                 .catch(function(err) {
                     return err;

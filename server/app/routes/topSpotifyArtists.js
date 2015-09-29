@@ -8,38 +8,29 @@ var Q = require('q');
 
 //Top Artists
 router.get('/', function(req, res) {
+  topSpotifyTracks().then(function(topTracks) {
+    var topTracks = filter(topTracks, 10);
+    var topArtists = [];
 
-	topSpotifyTracks().then(function(topTracks) {
-		var topTracks = filter(topTracks, 10);
-		var topArtists = [];
+    function getArtistInfoFromTrack(track, callback) {
+      var artistId = getArtistIdFromSpotifyURI(track.artist_url);
+      request('https://api.spotify.com/v1/artists/' + artistId, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          topArtists.push(JSON.parse(body));
+          callback();
+        }
+      })
+    };
 
-		function updateSixTopArtistsArray(track, callback) {
-		  var artistId = getArtistIdFromSpotifyURI(track.artist_url);
-		  request('https://api.spotify.com/v1/artists/' + artistId, function(error, response, body) {
-		    if (!error && response.statusCode == 200) {
-		      var parsedBody = JSON.parse(body);
-
-		      if (topArtists.indexOf(parsedBody) === -1) {
-		        topArtists.push(parsedBody);
-		      }
-
-		      callback();
-		    }
-		  })
-		};
-
-		//Loop through artist array and make request for each artist from Spotify
-		async.each(topTracks, updateSixTopArtistsArray, function(err) {
-		  if (err) {
-		    // One of the iterations produced an error.
-		    // All processing will now stop.
-		    console.log('Failed to make a Spotify request');
-		  } else {
-		    //Return array of artists
-		    res.json(topArtists);
-		  }
-		});
-	});
+    //Loop through artist array and make request for each artist from Spotify
+    async.each(topTracks, getArtistInfoFromTrack, function(err) {
+      if (err) {
+        console.log('Failed to make a Spotify request');
+      } else {
+        res.json(topArtists);
+      }
+    });
+  });
 });
 
 function topSpotifyTracks() {
@@ -68,22 +59,22 @@ function getArtistIdFromSpotifyURI(spotifyURI) {
 };
 
 function filter(topTracks, limit) {
-	var maxSize = limit || topTracks.length;
-	var hash = {};
+  var maxSize = limit || topTracks.length;
+  var hash = {};
 
-	var i = 0;
-	var size = 0;
+  var i = 0;
+  var size = 0;
 
-	while (i < topTracks.length && size < limit) {
-		if (hash[topTracks[i].artist_name] === undefined) {
-		  hash[topTracks[i].artist_name] = topTracks[i];
-		  size++;
-		}
+  while (i < topTracks.length && size < limit) {
+    if (hash[topTracks[i].artist_name] === undefined) {
+      hash[topTracks[i].artist_name] = topTracks[i];
+      size++;
+    }
 
-		i++;
-	}
+    i++;
+  }
 
-	return _.values(hash);
+  return _.values(hash);
 };
 
 module.exports = router;

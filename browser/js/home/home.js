@@ -18,9 +18,13 @@ app.controller('HomeCtrl', function($rootScope, $scope, $state, CurrentTopArtist
     // ArtistInfluences.getArtistInfluences will get all influences that will be seen for the artist selected in the front page.
     ArtistInfluences.getArtistInfluences(artistName)
       .then(function(artist) {
-        $rootScope.currArtist = artist;
-        console.log("Got influence time line for " + artistName + ":" + $rootScope.currArtist);
-        $state.go('discover-1');
+        if (artist) {
+          $rootScope.currArtist = artist.name;
+          console.log("Got influencer for " + artistName + ":" + $rootScope.currArtist);
+          $state.go('discover-1');
+        } else {
+          console.log("No influences found for " + artistName);
+        }
       })
       .catch(function(err) {
         return err;
