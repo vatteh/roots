@@ -28,7 +28,7 @@ function getArtistID(artistName) {
   request("https://api.spotify.com/v1/search?q=" + artistName + "&type=artist", function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var results = JSON.parse(body).artists.items;
-      // console.log("ARTIST SEARCH RESULT: ", results);
+      console.log("ARTIST SEARCH RESULT LENGTH: ", results.length);
 
       if (results.length === 0) {
         return deferred.reject();
@@ -52,7 +52,7 @@ function getArtistInfo(artistID) {
   request("https://api.spotify.com/v1/artists/" + artistID, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var results = JSON.parse(body).images;
-      // console.log("ARTIST INFO: ", results);
+      console.log("ARTIST INFO LENGTH: ", results.length);
 
       if (results.length === 0) {
         return deferred.reject();
@@ -76,15 +76,15 @@ function getTopTracks(artistID) {
   request("https://api.spotify.com/v1/artists/" + artistID + "/top-tracks?country=US", function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var results = JSON.parse(body).tracks;
-      // console.log("ARTIST TOP TRACKS: ", results);
+      console.log("ARTIST TOP TRACKS LENGTH: ", results.length);
       
       if (results.length === 0) {
         return deferred.reject();
       }
 
-      var artistFirstTopTrack = results[0];
+      var artistRandomTopTrack = results[Math.floor(Math.random() * results.length)];
 
-      deferred.resolve(artistFirstTopTrack);
+      deferred.resolve(artistRandomTopTrack);
     } else {
       deferred.reject(error);
     }
