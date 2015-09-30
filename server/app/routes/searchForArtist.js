@@ -1,7 +1,7 @@
 'use strict';
 var router = require('express').Router();
 var mongoose = require('mongoose');
-var request = require('request');
+var requestPromise = require('request-promise');
 var Q = require('q');
 
 // Given a name, search Spotify for Artist Info
@@ -23,74 +23,48 @@ router.get('/:artistName', function(req, res) {
 });
 
 function getArtistID(artistName) {
-  var deferred = Q.defer();
+  return requestPromise("https://api.spotify.com/v1/search?q=" + artistName + "&type=artist").then(function(body) {
+    var results = JSON.parse(body).artists.items;
+    console.log("ARTIST SEARCH RESULT LENGTH: ", results.length);
 
-  request("https://api.spotify.com/v1/search?q=" + artistName + "&type=artist", function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      var results = JSON.parse(body).artists.items;
-      // console.log("ARTIST SEARCH RESULT: ", results);
-
-      if (results.length === 0) {
-        return deferred.reject();
-      }
-      
-      //assuming the first search result is what we want for now
-      var artistID = results[0].id;
-      deferred.resolve(artistID);
-    } else {
-      deferred.reject(error); 
+    if (results.length === 0) {
+      throw new Error('No artist ID found!');
     }
-  });
 
-  return deferred.promise;
+    //assuming the first search result is what we want for now
+    var artistID = results[0].id;
+    return artistID;
+  });
 };
 
 function getArtistInfo(artistID) {
-  var deferred = Q.defer();
-
   //Take artistId and get artist images
-  request("https://api.spotify.com/v1/artists/" + artistID, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      var results = JSON.parse(body).images;
-      // console.log("ARTIST INFO: ", results);
+  return requestPromise("https://api.spotify.com/v1/artists/" + artistID).then(function(body) {
+    var results = JSON.parse(body).images;
+    console.log("ARTIST INFO LENGTH: ", results.length);
 
-      if (results.length === 0) {
-        return deferred.reject();
-      }
-
-      var artistImageURL = results[0].url;
-
-      deferred.resolve(artistImageURL);
-    } else {
-      deferred.reject(error); 
+    if (results.length === 0) {
+      throw new Error('No artist info found!');
     }
-  })
 
-  return deferred.promise;
+    var artistImageURL = results[0].url;
+    return artistImageURL;
+  });
 };
 
 function getTopTracks(artistID) {
-  var deferred = Q.defer();
-
   //Take artistID an get top tracks
-  request("https://api.spotify.com/v1/artists/" + artistID + "/top-tracks?country=US", function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      var results = JSON.parse(body).tracks;
-      // console.log("ARTIST TOP TRACKS: ", results);
-      
-      if (results.length === 0) {
-        return deferred.reject();
-      }
+  return requestPromise("https://api.spotify.com/v1/artists/" + artistID + "/top-tracks?country=US").then(function(body) {
+    var results = JSON.parse(body).tracks;
+    console.log("ARTIST TOP TRACKS LENGTH: ", results.length);
 
-      var artistFirstTopTrack = results[0];
-
-      deferred.resolve(artistFirstTopTrack);
-    } else {
-      deferred.reject(error);
+    if (results.length === 0) {
+      throw new Error('No artist tracks found!');
     }
-  });
 
-  return deferred.promise;
+    var artistRandomTopTrack = results[Math.floor(Math.random() * results.length)];
+    return artistRandomTopTrack;
+  });
 };
 
 module.exports = router;

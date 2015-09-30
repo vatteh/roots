@@ -61,6 +61,7 @@
     "passport-twitter": "^1.0.2",
     "q": "^1.4.1",
     "request": "^2.64.0",
+    "request-promise": "^0.4.3",
     "run-sequence": "^1.0.2",
     "serve-favicon": "^2.2.0",
     "sinon": "^1.13.0",

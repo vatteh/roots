@@ -1,11 +1,14 @@
 app.config(function($stateProvider) {
   $stateProvider.state('home', {
     url: '/',
-    templateUrl: 'js/home/home.html'
+    templateUrl: 'js/home/home.html',
+    controller: 'HomeCtrl'
   });
 });
 
 app.controller('HomeCtrl', function($rootScope, $scope, $state, CurrentTopArtists, ArtistInfluences) {
+  $rootScope.discoverPage = 0;
+
   CurrentTopArtists.getCurrentTopArtists()
     .then(function(response) {
       $scope.currentTopArtists = response;
@@ -19,6 +22,7 @@ app.controller('HomeCtrl', function($rootScope, $scope, $state, CurrentTopArtist
     ArtistInfluences.getArtistInfluences(artistName)
       .then(function(artist) {
         if (artist) {
+          $rootScope.discoverPage = 1;
           $rootScope.currArtist = artist.name;
           console.log("Got influencer for " + artistName + ":" + $rootScope.currArtist);
           $state.go('discover-1');
