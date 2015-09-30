@@ -15,15 +15,12 @@ module.exports = {
     return requestPromise(roviUrl).then(function(body) {
       var influencers = JSON.parse(body).influencers;
       if (influencers.length === 0) {
-        return null;
+        throw new Error('No influencers were found!');
       } else {
         var randomArtist = influencers[Math.floor(Math.random() * influencers.length)];
-        console.log('Random influence for ' + artistName + ' - ', randomArtist);
+        console.log('Random influence for ' + artistName + ': ', randomArtist.name);
         return randomArtist;
       }
-    }).catch(function(error) {
-      console.log('Failed to get influencers - ', error);
-      return error;
     });
 
     /*
