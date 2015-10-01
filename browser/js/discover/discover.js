@@ -60,30 +60,6 @@ app.config(function($stateProvider) {
   });
 });
 
-app.controller('transitionController', function($rootScope, $scope, $state, $sce, ArtistInfluences, SpotifyInfo) {
+app.controller('transitionController', function($rootScope, $scope) {
   $scope.pageClass = 'discover-' + $rootScope.discoverPage;
-
-  //Get Artist Info
-  SpotifyInfo.searchForArtist($rootScope.currArtist).then(function(data) {
-    if (data === null) {
-      $rootScope.discoverPage = 0;
-      $state.go('home');
-    } else {
-      $scope.artistData = data;
-      $scope.recording = $sce.trustAsResourceUrl($scope.artistData.artistFirstTopTrack.preview_url);
-    }
-  });
-
-  $scope.transitionTo = function() {
-    ArtistInfluences.getArtistInfluences($rootScope.currArtist).then(function(artist) {
-      if (artist && $rootScope.discoverPage < 10) {
-        $rootScope.currArtist = artist.name;
-        $rootScope.discoverPage++;
-        $state.go('discover-' + $rootScope.discoverPage);
-      } else {
-        $rootScope.discoverPage = 0;
-        $state.go('home');
-      }
-    });
-  };
 });

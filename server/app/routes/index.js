@@ -5,7 +5,7 @@ var request = require('request');
 module.exports = router;
 
 router.use('/artistInfluences', require('./artistInfluences.js'));
-router.use('/searchForArtist', require('./searchForArtist.js'));
+router.use('/influencerData', require('./influencerData.js'));
 router.use('/topSpotifyArtists', require('./topSpotifyArtists.js'));
 
 // Make sure this is after all of

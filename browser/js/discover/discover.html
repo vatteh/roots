@@ -3,7 +3,7 @@
   <h2>Song Name: {{artistData.artistFirstTopTrack.name}}</h2>
   <img style="height:450px; border-width: 5px; border-style: solid; border-color: white" ng-src="{{artistData.artistImageURL}}" />
   <div class="row" style='padding: 10px;'>
-    <a ng-click="transitionTo()" class="btn btn-success btn-lg">Who Influenced {{currArtist}}?</a>
+    <a ng-click="nextInfluencer(currArtist)" class="btn btn-success btn-lg">Who Influenced {{currArtist}}?</a>
     <a ng-href="home" class="btn btn-warning btn-lg">Home</a>
   </div>
   <iframe width="0" height="0" class="visibility: none" ng-src="{{recording}}" frameborder="0">
