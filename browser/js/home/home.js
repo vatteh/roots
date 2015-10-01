@@ -6,7 +6,7 @@ app.config(function($stateProvider) {
   });
 });
 
-app.controller('HomeCtrl', function($rootScope, $scope, $state, CurrentTopArtists, ArtistInfluences) {
+app.controller('HomeCtrl', function($rootScope, $scope, $state, $sce, CurrentTopArtists, ArtistInfluences, SpotifyInfo) {
   $rootScope.discoverPage = 0;
 
   CurrentTopArtists.getCurrentTopArtists()
@@ -17,21 +17,32 @@ app.controller('HomeCtrl', function($rootScope, $scope, $state, CurrentTopArtist
       return err;
     });
 
-  $scope.startDiscovery = function(artistName) {
+  $rootScope.nextInfluencer = function(artistName) {
+    var newCurrentArtist;
+
     // ArtistInfluences.getArtistInfluences will get all influences that will be seen for the artist selected in the front page.
     ArtistInfluences.getArtistInfluences(artistName)
       .then(function(artist) {
-        if (artist) {
-          $rootScope.discoverPage = 1;
-          $rootScope.currArtist = artist.name;
-          console.log("Got influencer for " + artistName + ":" + $rootScope.currArtist);
-          $state.go('discover-1');
+        if (artist.name !== 'StatusCodeError' && $rootScope.discoverPage < 10) {
+          console.log("Got influencer for " + artistName + ": " + artist.name);
+          $rootScope.discoverPage++;
+          newCurrentArtist = artist.name;
+          return SpotifyInfo.searchForArtist(newCurrentArtist);
         } else {
-          console.log("No influences found for " + artistName);
+          throw new Error('No artist influencer found for - ' + artistName);
         }
-      })
-      .catch(function(err) {
-        return err;
-      })
+      }).then(function(data) {
+        if (data !== null) {
+          $rootScope.artistData = data;
+          $rootScope.recording = $sce.trustAsResourceUrl($rootScope.artistData.artistFirstTopTrack.preview_url);
+          $rootScope.currArtist = newCurrentArtist;
+          $state.go('discover-' + $rootScope.discoverPage);
+        } else {
+          throw new Error('No spotify info found for influencer - ' + $rootScope.currArtist);
+        }
+      }).catch(function(err) {
+        $rootScope.discoverPage = 0;
+        $state.go('home');
+      });
   };
 });

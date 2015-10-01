@@ -18,7 +18,7 @@ module.exports = {
         throw new Error('No influencers were found!');
       } else {
         var randomArtist = influencers[Math.floor(Math.random() * influencers.length)];
-        console.log('Random influence for ' + artistName + ': ', randomArtist.name);
+        console.log('Random influencer for ' + artistName + ': ', randomArtist.name);
         return randomArtist;
       }
     });
