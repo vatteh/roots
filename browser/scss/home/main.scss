@@ -1,5 +1,4 @@
 #home {
-
   fullstack-logo {
     padding-top: 30px;
     width: 150px;
@@ -10,28 +9,90 @@
     text-align: center;
   }
   .resize {
-  	max-width:550px;
-  	height: auto;
-  	width: auto;
+    max-width: 550px;
+    height: auto;
+    width: auto;
   }
-
   .masonry-brick {
-      margin: 1em;
-      display: none;
+    margin: 1em;
+    display: none;
   }
-
   .masonry-brick.loaded {
-      display: block;
+    display: block;
   }
 
-  img {
-      opacity: 0.4;
-      filter: alpha(opacity=40); /* For IE8 and earlier */
+  figure {
+    overflow: hidden;
+    background: #000000;
   }
 
-  img:hover {
-      opacity: 1.0;
-      filter: alpha(opacity=100); /* For IE8 and earlier */
+  figure img{
+    opacity: 0.4;
+    position: relative;
+    filter: alpha(opacity=40);
+    /* For IE8 and earlier */
+  }
+  figure:hover img{
+    opacity: 1.0;
+    filter: alpha(opacity=100);
+    /* For IE8 and earlier */
+  }
+
+  figure * {
+    -webkit-transition: all 0.35s ease-in-out;
+    transition: all 0.35s ease-in-out;
+  }
+
+  figure figcaption {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    right: 30px;
+    -webkit-transform: translateY(-50%) scale(1);
+    transform: translateY(-50%) scale(1);
+    -webkit-transform-origin: center 0;
+    transform-origin: center 0;
+  }
+
+  figure figcaption h2 {
+    top: 50%;
+    letter-spacing: -1px;
+    color: #ffffff;
+    text-transform: uppercase;
+    padding: 10px 0;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  figure figcaption:before,
+  figure figcaption:after {
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    content: "";
+    display: block;
+    -webkit-transition: all 0.35s ease-in-out;
+    transition: all 0.35s ease-in-out;
+  }
+
+  figure figcaption:before {
+    left: 0;
+    top: 0;
+  }
+
+  figure figcaption:after {
+    bottom: 0;
+    right: 0;
+  }
+
+  figure:hover figcaption {
+    -webkit-transform: translateY(calc(200%)) scale(0.7);
+    transform: translateY(calc(200%)) scale(0.7);
+  }
+
+  figure:hover figcaption:before,
+  figure:hover figcaption:after {
+    width: 200%;
   }
 }
-
