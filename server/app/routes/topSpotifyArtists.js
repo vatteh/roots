@@ -2,7 +2,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var requestPromise = require('request-promise');
-var async = require('async');
 var _ = require('underscore');
 var Q = require('q');
 

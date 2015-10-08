@@ -12,9 +12,9 @@ app.controller('HomeCtrl', function($rootScope, $scope, $state, $sce, CurrentTop
   CurrentTopArtists.getCurrentTopArtists()
     .then(function(response) {
       $scope.currentTopArtists = response;
-    })
-    .catch(function(err) {
-      return err;
+    }).catch(function(err) {
+      throw new Error('Colud not get current top spotify artists!');
+      console.log(err);
     });
 
   $rootScope.nextInfluencer = function(artistName) {
