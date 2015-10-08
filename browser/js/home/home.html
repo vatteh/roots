@@ -5,7 +5,7 @@
   <div masonry style="width: 1200px;
   margin-left: auto;
   margin-right: auto;">
-    <figure class="masonry-brick" ng-repeat="artist in currentTopArtists track by $index">
+    <figure class="masonry-brick" ng-repeat="artist in currentTopArtists">
       <a ng-click="nextInfluencer(artist.name)"><img class="resize" ng-src="{{artist.images[0].url}}" /></a>
       <figcaption>
         <h2>{{artist.name}}</h2>
