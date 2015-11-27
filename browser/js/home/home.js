@@ -17,6 +17,17 @@ app.controller('HomeCtrl', function($rootScope, $scope, $state, $sce, CurrentTop
       console.log(err);
     });
 
+  $scope.getMoreArtists = function() {
+    return CurrentTopArtists.getCurrentTopArtists()
+      .then(function(response) {
+        $scope.currentTopArtists = $scope.currentTopArtists.concat(response);
+        return;
+      }).catch(function(err) {
+        throw new Error('Colud not get more spotify artists!');
+        console.log(err);
+      });
+  };
+
   $rootScope.nextInfluencer = function(artistName) {
     var newCurrentArtist;
 
