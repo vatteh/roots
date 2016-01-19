@@ -7,7 +7,7 @@ app.factory('CurrentTopArtists', function($http) {
                 })
                 .catch(function(err) {
                     return err;
-                })
+                });
         },
         getArtistData: function(artists) {
             var params = {artists: JSON.stringify(artists)};
@@ -18,7 +18,7 @@ app.factory('CurrentTopArtists', function($http) {
                 })
                 .catch(function(err) {
                     return err;
-                })
+                });
         }
     };
 });

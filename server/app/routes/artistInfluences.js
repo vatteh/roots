@@ -1,4 +1,5 @@
 'use strict';
+/* global module, console, require */
 var router = require('express').Router();
 var roviApiRequestService = require('../roviApiRequestService');
 

@@ -1,4 +1,5 @@
 'use strict';
+/* global module, console, require */
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var requestPromise = require('request-promise');
@@ -35,7 +36,7 @@ function getArtistID(artistName) {
         var artistID = results[0].id;
         return artistID;
     });
-};
+}
 
 function getArtistInfo(artistID) {
     //Take artistId and get artist images
@@ -50,7 +51,7 @@ function getArtistInfo(artistID) {
         var artistImageURL = results[0].url;
         return artistImageURL;
     });
-};
+}
 
 function getTopTracks(artistID) {
     //Take artistID an get top tracks
@@ -65,6 +66,6 @@ function getTopTracks(artistID) {
         var artistRandomTopTrack = results[Math.floor(Math.random() * results.length)];
         return artistRandomTopTrack;
     });
-};
+}
 
 module.exports = router;
