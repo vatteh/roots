@@ -1,3 +1,5 @@
+/* global console */
+
 app.config(function($stateProvider) {
     $stateProvider.state('home', {
         url: '/',
@@ -6,11 +8,9 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function($rootScope, $scope, $state, $sce, $q, CurrentTopArtists, ArtistInfluences, SpotifyInfo) {
+app.controller('HomeCtrl', function($scope, $state, $q, CurrentTopArtists, ArtistInfluences, SpotifyInfo) {
 
     $scope.initializeHomePage = function() {
-        $rootScope.discoverPage = 0;
-
         return CurrentTopArtists.getCurrentTopArtists()
             .then(function(response) {
                 $scope.currentTopArtists = response;
@@ -27,7 +27,7 @@ app.controller('HomeCtrl', function($rootScope, $scope, $state, $sce, $q, Curren
 
     $scope.getMoreArtists = function() {
 
-        if (!$scope.currentTopArtists || $scope.currentTopArtists.length == 0) {
+        if (!$scope.currentTopArtists || $scope.currentTopArtists.length === 0) {
             return $q.when();
         }
         
@@ -42,33 +42,25 @@ app.controller('HomeCtrl', function($rootScope, $scope, $state, $sce, $q, Curren
             });
     };
 
-    $rootScope.nextInfluencer = function(artistName) {
-        var newCurrentArtist;
-
-        // ArtistInfluences.getArtistInfluences will get all influences that will be seen for the artist selected in the front page.
+    $scope.startDiscovery = function(artistName) {
+        var influencer;
         return ArtistInfluences.getArtistInfluences(artistName)
             .then(function(artist) {
-                if (artist.name !== 'StatusCodeError' && $rootScope.discoverPage < 10) {
-                    console.log("Got influencer for " + artistName + ": " + artist.name);
-                    $rootScope.discoverPage++;
-                    newCurrentArtist = artist.name;
-                    return SpotifyInfo.searchForArtist(newCurrentArtist);
+                if (artist.name !== 'StatusCodeError') {
+                    influencer = artist.name;
+                    console.log("Got influencer for " + artistName + ": " + influencer);
+                    return SpotifyInfo.searchForArtist(influencer);
                 } else {
                     throw new Error('No artist influencer found for - ' + artistName);
                 }
             })
             .then(function(data) {
                 if (data !== null) {
-                    $rootScope.artistData = data;
-                    $rootScope.recording = $sce.trustAsResourceUrl($rootScope.artistData.artistFirstTopTrack.preview_url);
-                    $rootScope.currArtist = newCurrentArtist;
-                    $state.go('discover-' + $rootScope.discoverPage);
+                    data.name = influencer;
+                    $state.go('discover', {artistData: data});
                 } else {
-                    throw new Error('No spotify info found for influencer - ' + $rootScope.currArtist);
+                    throw new Error('No spotify info found for influencer - ' + influencer);
                 }
-            })
-            .catch(function(err) {
-                $state.go('home');
             });
     };
 
