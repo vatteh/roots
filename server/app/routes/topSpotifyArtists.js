@@ -1,10 +1,38 @@
-'use strict';
 /* global module, console, require */
+'use strict';
 var router = require('express').Router();
-var mongoose = require('mongoose');
 var requestPromise = require('request-promise');
-var _ = require('underscore');
+var _ = require('lodash');
 var Q = require('q');
+
+function topSpotifyTracks() {
+    return requestPromise('http://charts.spotify.com/api/tracks/most_streamed/us/daily/latest').then(function(body) {
+        var topTracks = JSON.parse(body).tracks;
+
+        topTracks.sort(function() {
+            return 0.5 - Math.random();
+        });
+
+        return topTracks;
+    });
+}
+
+function getArtistIdFromSpotifyURI(spotifyURI) {
+    return spotifyURI.slice(32);
+}
+
+// returns only unique artists in topTracks list 
+function filter(topTracks) {
+    var hash = {};
+
+    for (var i = 0; i < topTracks.length; i++) {
+        if (hash[topTracks[i].artist_name] === undefined) {
+            hash[topTracks[i].artist_name] = _.pick(topTracks[i], 'artist_name', 'artist_url');
+        }
+    }
+
+    return _.values(hash);
+}
 
 router.get('/', function(req, res) {
     topSpotifyTracks().then(function(topTracks) {
@@ -38,33 +66,5 @@ router.get('/artistData', function(req, res) {
     });
 });
 
-function topSpotifyTracks() {
-    return requestPromise('http://charts.spotify.com/api/tracks/most_streamed/us/daily/latest').then(function(body) {
-        var topTracks = JSON.parse(body).tracks;
-
-        topTracks.sort(function() {
-            return 0.5 - Math.random();
-        });
-
-        return topTracks;
-    });
-}
-
-function getArtistIdFromSpotifyURI(spotifyURI) {
-    return spotifyURI.slice(32);
-}
-
-// returns only unique artists in topTracks list 
-function filter(topTracks) {
-    var hash = {};
-
-    for (var i = 0; i < topTracks.length; i++) {
-        if (hash[topTracks[i].artist_name] === undefined) {
-            hash[topTracks[i].artist_name] = _.pick(topTracks[i], 'artist_name', 'artist_url');
-        }
-    }
-
-    return _.values(hash);
-}
 
 module.exports = router;

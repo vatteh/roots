@@ -1,5 +1,4 @@
 /* global console */
-
 app.config(function($stateProvider) {
     $stateProvider.state('home', {
         url: '/',
@@ -9,7 +8,6 @@ app.config(function($stateProvider) {
 });
 
 app.controller('HomeCtrl', function($scope, $state, $q, CurrentTopArtists, ArtistInfluences, SpotifyInfo) {
-
     $scope.initializeHomePage = function() {
         return CurrentTopArtists.getCurrentTopArtists()
             .then(function(response) {
@@ -19,9 +17,8 @@ app.controller('HomeCtrl', function($scope, $state, $q, CurrentTopArtists, Artis
             .then(function(response) {
                 $scope.displayedArtists = response;
             })
-            .catch(function(err) {
+            .catch(function() {
                 throw new Error('Colud not get current top spotify artists!');
-                console.log(err);
             });
     };
 
@@ -36,9 +33,8 @@ app.controller('HomeCtrl', function($scope, $state, $q, CurrentTopArtists, Artis
             .then(function(response) {
                 $scope.displayedArtists = $scope.displayedArtists.concat(response);
             })
-            .catch(function(err) {
+            .catch(function() {
                 throw new Error('Colud not get more spotify artists!');
-                console.log(err);
             });
     };
 

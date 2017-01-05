@@ -1,32 +1,12 @@
-'use strict';
 /* global module, console, require */
+'use strict';
 var router = require('express').Router();
-var mongoose = require('mongoose');
 var requestPromise = require('request-promise');
 var Q = require('q');
-
-// Given a name, search Spotify for Artist Info
-router.get('/:artistName', function(req, res) {
-    var artistID;
-
-    getArtistID(req.params.artistName).then(function(id) {
-        artistID = id;
-        return Q.all([getArtistInfo(artistID), getTopTracks(artistID)]);
-    }).then(function(data) {
-        res.json({
-            artistId: artistID,
-            artistImageURL: data[0],
-            artistFirstTopTrack: data[1]
-        });
-    }, function() {
-        res.json(null);
-    });
-});
 
 function getArtistID(artistName) {
     return requestPromise("https://api.spotify.com/v1/search?q=" + artistName + "&type=artist").then(function(body) {
         var results = JSON.parse(body).artists.items;
-        // console.log("ARTIST SEARCH RESULT LENGTH: ", results.length);
 
         if (results.length === 0) {
             throw new Error('No artist ID found!');
@@ -67,5 +47,23 @@ function getTopTracks(artistID) {
         return artistRandomTopTrack;
     });
 }
+
+// Given a name, search Spotify for Artist Info
+router.get('/:artistName', function(req, res) {
+    var artistID;
+
+    getArtistID(req.params.artistName).then(function(id) {
+        artistID = id;
+        return Q.all([getArtistInfo(artistID), getTopTracks(artistID)]);
+    }).then(function(data) {
+        res.json({
+            artistId: artistID,
+            artistImageURL: data[0],
+            artistFirstTopTrack: data[1]
+        });
+    }, function() {
+        res.json(null);
+    });
+});
 
 module.exports = router;

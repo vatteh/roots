@@ -1,7 +1,5 @@
 var path = require('path');
-
 module.exports = function (config) {
-
     var filesCollection = [
         'node_modules/lodash/index.js',
         'node_modules/angular/angular.js',
@@ -41,5 +39,4 @@ module.exports = function (config) {
     };
 
     config.set(configObj);
-
 };

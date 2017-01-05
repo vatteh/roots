@@ -18,6 +18,8 @@ describe('GET /topSpotifyArtists', function() {
             expect(topArtists).to.be.a('array');
             expect(topArtists).to.have.length.above(0);
 
+            console.log('topArtists', topArtists);
+
             var allNames = {};
             for (var i = 0; i < topArtists.length; i++) {
                 expect(topArtists[i]).to.include.keys('artist_name', 'artist_url');

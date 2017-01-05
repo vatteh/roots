@@ -10,5 +10,4 @@ app.factory('ArtistInfluences', function ($http) {
                 });
         }
     };
-
 });

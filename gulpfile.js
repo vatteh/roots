@@ -20,7 +20,6 @@ var istanbul = require('gulp-istanbul');
 
 // Development tasks
 // --------------------------------------------------------------
-
 // Live reload business.
 gulp.task('reload', function () {
     livereload.reload();
@@ -31,7 +30,6 @@ gulp.task('reloadCSS', function () {
 });
 
 gulp.task('lintJS', function () {
-
     return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
         .pipe(eslint())
         .pipe(eslint.format())
@@ -89,29 +87,7 @@ gulp.task('buildCSS', function () {
         .pipe(gulp.dest('./public'));
 });
 
-gulp.task('seedDB', function () {
-
-    var users = [
-        { email: 'testing@fsa.com', password: 'testing123' },
-        { email: 'joe@fsa.com', password: 'rainbowkicks' },
-        { email: 'obama@gmail.com', password: 'potus' }
-    ];
-
-    var dbConnected = require('./server/db');
-
-    return dbConnected.then(function () {
-        var User = require('mongoose').model('User');
-        return User.create(users);
-    }).then(function () {
-        process.kill(0);
-    }).catch(function (err) {
-        console.error(err);
-    });
-
-});
-
 // --------------------------------------------------------------
-
 // Production tasks
 // --------------------------------------------------------------
 
@@ -120,7 +96,7 @@ gulp.task('buildCSSProduction', function () {
         .pipe(sass())
         .pipe(rename('style.css'))
         .pipe(minifyCSS())
-        .pipe(gulp.dest('./public'))
+        .pipe(gulp.dest('./public'));
 });
 
 gulp.task('buildJSProduction', function () {
@@ -135,7 +111,6 @@ gulp.task('buildJSProduction', function () {
 gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
 
 // --------------------------------------------------------------
-
 // Composed tasks
 // --------------------------------------------------------------
 
@@ -148,7 +123,6 @@ gulp.task('build', function () {
 });
 
 gulp.task('default', function () {
-
     livereload.listen();
     gulp.start('build');
 
@@ -170,5 +144,4 @@ gulp.task('default', function () {
 
     // Run browser testing when a browser test file changes.
     gulp.watch('tests/browser/**/*', ['testBrowserJS']);
-
 });

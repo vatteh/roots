@@ -10,5 +10,4 @@ app.factory('SpotifyInfo', function ($http) {
                 });
         }
     };
-
 });

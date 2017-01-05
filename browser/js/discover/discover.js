@@ -35,7 +35,7 @@ app.controller('discoverController', function($scope, $sce, $stateParams, $state
                     throw new Error('No spotify info found for influencer - ' + influencer);
                 }
             })
-            .catch(function(err) {
+            .catch(function() {
                 $state.go('home');
             });
     };
@@ -45,5 +45,4 @@ app.controller('discoverController', function($scope, $sce, $stateParams, $state
     };
 
     $scope.initializeDiscoverPage();
-
 });

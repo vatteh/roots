@@ -3,7 +3,7 @@
 var router = require('express').Router();
 var roviApiRequestService = require('../roviApiRequestService');
 
-router.get('/:artistName', function(req, res, next) {
+router.get('/:artistName', function(req, res) {
     roviApiRequestService.getArtistInfluences(req.params.artistName).then(function(artist) {
         res.json(artist);
     }).catch(function(error) {
