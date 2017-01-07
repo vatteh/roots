@@ -1,15 +1,19 @@
-/* global module, console, require */
+/* jshint esversion:6 */
+/* jshint node: true */
 'use strict';
-var router = require('express').Router();
-var requestPromise = require('request-promise');
-var _ = require('lodash');
-var Q = require('q');
+
+import express from 'express';
+import requestPromise from 'request-promise';
+import _ from 'lodash';
+import Q from 'q';
+
+let router = express.Router();
 
 function topSpotifyTracks() {
-    return requestPromise('http://charts.spotify.com/api/tracks/most_streamed/us/daily/latest').then(function(body) {
-        var topTracks = JSON.parse(body).tracks;
+    return requestPromise('http://charts.spotify.com/api/tracks/most_streamed/us/daily/latest').then(body => {
+        let topTracks = JSON.parse(body).tracks;
 
-        topTracks.sort(function() {
+        topTracks.sort(() => {
             return 0.5 - Math.random();
         });
 
@@ -23,9 +27,9 @@ function getArtistIdFromSpotifyURI(spotifyURI) {
 
 // returns only unique artists in topTracks list 
 function filter(topTracks) {
-    var hash = {};
+    let hash = {};
 
-    for (var i = 0; i < topTracks.length; i++) {
+    for (let i = 0; i < topTracks.length; i++) {
         if (hash[topTracks[i].artist_name] === undefined) {
             hash[topTracks[i].artist_name] = _.pick(topTracks[i], 'artist_name', 'artist_url');
         }
@@ -34,37 +38,35 @@ function filter(topTracks) {
     return _.values(hash);
 }
 
-router.get('/', function(req, res) {
-    topSpotifyTracks().then(function(topTracks) {
+router.get('/', (req, res) => {
+    topSpotifyTracks().then(topTracks => {
         res.json(filter(topTracks));
-    })
-    .catch(function(error) {
+    }).catch(error => {
         console.log('Failed to get top Spotify tracks');
         res.json(error);
     });
 });
 
-router.get('/artistData', function(req, res) {    
-    var artists = JSON.parse(req.query.artists);
-    var promises = [];
+router.get('/artistData', (req, res) => {    
+    let artists = JSON.parse(req.query.artists);
+    let promises = [];
 
-    for (var i = 0; i < artists.length; i++) {
-        var artistId = getArtistIdFromSpotifyURI(artists[i].artist_url);
+    for (let i = 0; i < artists.length; i++) {
+        let artistId = getArtistIdFromSpotifyURI(artists[i].artist_url);
         promises.push(requestPromise('https://api.spotify.com/v1/artists/' + artistId));
     }
 
-    Q.all(promises).then(function(topArtists) {
-        var topArtistsJSON = topArtists.map(function(elm) {
-            return JSON.parse(elm);
+    Q.all(promises).then(topArtists => {
+        let topArtistsJSON = topArtists.map(element => {
+            return JSON.parse(element);
         });
 
         res.json(topArtistsJSON);
-    })
-    .catch(function(error) {
+    }).catch(error => {
         console.log('Failed to get Spotify artist data');
         res.json(error);
     });
 });
 
 
-module.exports = router;
+export default router;

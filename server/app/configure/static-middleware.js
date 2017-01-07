@@ -1,13 +1,16 @@
-"use strict";
-var path = require('path');
-var express = require('express');
-var favicon = require('serve-favicon');
+/* jshint esversion:6 */
+/* jshint node: true */
+'use strict';
 
-module.exports = function (app) {
-    var root = app.getValue('projectRoot');
-    var npmPath = path.join(root, './node_modules');
-    var publicPath = path.join(root, './public');
-    var browserPath = path.join(root, './browser');
+import path from 'path';
+import express from 'express';
+import favicon from 'serve-favicon';
+
+export default app => {
+    let root = app.getValue('projectRoot');
+    let npmPath = path.join(root, './node_modules');
+    let publicPath = path.join(root, './public');
+    let browserPath = path.join(root, './browser');
 
     app.use(favicon(app.getValue('faviconPath')));
     app.use(express.static(npmPath));

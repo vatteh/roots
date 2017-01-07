@@ -1,22 +1,27 @@
+/* jshint esversion:6 */
+/* jshint node: true */
 'use strict';
-var chalk = require('chalk');
-var Promise = require('bluebird');
-var server = require('http').createServer();
 
-var createApplication = function() {
-    var app = require('./app');
+import chalk from 'chalk';
+import Promise from 'bluebird';
+import http from 'http';
+import app from './app';
+
+let server = http.createServer();
+
+let createApplication = () => {
     server.on('request', app);
 };
 
-var startServer = function() {
-    var PORT = process.env.PORT || 1337;
+let startServer = () => {
+    let PORT = process.env.PORT || 1337;
 
-    server.listen(PORT, function() {
+    server.listen(PORT, () => {
         console.log(chalk.blue('Server started on port', chalk.magenta(PORT)));
     });
 };
 
-Promise.try(createApplication).then(startServer).catch(function(err) {
+Promise.try(createApplication).then(startServer).catch(err => {
     console.error(chalk.red(err.stack));
     process.kill(1);
 });

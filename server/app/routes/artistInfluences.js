@@ -1,14 +1,17 @@
+/* jshint esversion:6 */
+/* jshint node: true */
 'use strict';
-/* global module, console, require */
-var router = require('express').Router();
-var roviApiRequestService = require('../roviApiRequestService');
 
-router.get('/:artistName', function(req, res) {
-    roviApiRequestService.getArtistInfluences(req.params.artistName).then(function(artist) {
+import express from 'express';
+import roviApiRequestService from '../roviApiRequestService';
+
+let router = express.Router();
+router.get('/:artistName', (req, res) => {
+    roviApiRequestService.getArtistInfluences(req.params.artistName).then(artist => {
         res.json(artist);
-    }).catch(function(error) {
+    }).catch(error => {
         res.json(error);
     });
 });
 
-module.exports = router;
+export default router;

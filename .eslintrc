@@ -1,5 +1,6 @@
 {
   // http://eslint.org/docs/rules/
+  "parser": "babel-eslint",
 
   "ecmaFeatures": {
     "binaryLiterals": 1,                    // enable binary literals

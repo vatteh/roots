@@ -1,69 +1,72 @@
-/* global module, console, require */
+/* jshint esversion:6 */
+/* jshint node: true */
 'use strict';
-var router = require('express').Router();
-var requestPromise = require('request-promise');
-var Q = require('q');
+
+import express from 'express';
+import requestPromise from 'request-promise';
+import Q from 'q';
+
+let router = express.Router();
 
 function getArtistID(artistName) {
-    return requestPromise("https://api.spotify.com/v1/search?q=" + artistName + "&type=artist").then(function(body) {
-        var results = JSON.parse(body).artists.items;
+    return requestPromise("https://api.spotify.com/v1/search?q=" + artistName + "&type=artist").then(body => {
+        let results = JSON.parse(body).artists.items;
 
         if (results.length === 0) {
             throw new Error('No artist ID found!');
         }
 
-        //assuming the first search result is what we want for now
-        var artistID = results[0].id;
+        // assuming the first search result is what we want for now
+        let artistID = results[0].id;
         return artistID;
     });
 }
 
 function getArtistInfo(artistID) {
     //Take artistId and get artist images
-    return requestPromise("https://api.spotify.com/v1/artists/" + artistID).then(function(body) {
-        var results = JSON.parse(body).images;
-        // console.log("ARTIST INFO LENGTH: ", results.length);
+    return requestPromise("https://api.spotify.com/v1/artists/" + artistID).then(body => {
+        let results = JSON.parse(body).images;
 
         if (results.length === 0) {
             throw new Error('No artist info found!');
         }
 
-        var artistImageURL = results[0].url;
+        let artistImageURL = results[0].url;
         return artistImageURL;
     });
 }
 
 function getTopTracks(artistID) {
     //Take artistID an get top tracks
-    return requestPromise("https://api.spotify.com/v1/artists/" + artistID + "/top-tracks?country=US").then(function(body) {
-        var results = JSON.parse(body).tracks;
+    return requestPromise("https://api.spotify.com/v1/artists/" + artistID + "/top-tracks?country=US").then(body => {
+        let results = JSON.parse(body).tracks;
         // console.log("ARTIST TOP TRACKS LENGTH: ", results.length);
 
         if (results.length === 0) {
             throw new Error('No artist tracks found!');
         }
 
-        var artistRandomTopTrack = results[Math.floor(Math.random() * results.length)];
+        let artistRandomTopTrack = results[Math.floor(Math.random() * results.length)];
         return artistRandomTopTrack;
     });
 }
 
 // Given a name, search Spotify for Artist Info
-router.get('/:artistName', function(req, res) {
-    var artistID;
+router.get('/:artistName', (req, res) => {
+    let artistID;
 
-    getArtistID(req.params.artistName).then(function(id) {
+    getArtistID(req.params.artistName).then(id => {
         artistID = id;
         return Q.all([getArtistInfo(artistID), getTopTracks(artistID)]);
-    }).then(function(data) {
+    }).then(data => {
         res.json({
             artistId: artistID,
             artistImageURL: data[0],
             artistFirstTopTrack: data[1]
         });
-    }, function() {
+    }, () => {
         res.json(null);
     });
 });
 
-module.exports = router;
+export default router;

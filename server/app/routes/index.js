@@ -1,14 +1,22 @@
+/* jshint esversion:6 */
+/* jshint node: true */
 'use strict';
-var router = require('express').Router();
 
-module.exports = router;
+import express from 'express';
+import artistInfluences from './artistInfluences';
+import influencerData from './influencerData';
+import topSpotifyArtists from './topSpotifyArtists';
 
-router.use('/artistInfluences', require('./artistInfluences.js'));
-router.use('/influencerData', require('./influencerData.js'));
-router.use('/topSpotifyArtists', require('./topSpotifyArtists.js'));
+let router = express.Router();
+
+router.use('/artistInfluences', artistInfluences);
+router.use('/influencerData', influencerData);
+router.use('/topSpotifyArtists', topSpotifyArtists);
 
 // Make sure this is after all of
 // the registered routes!
-router.use(function(req, res) {
+router.use((req, res) => {
   res.status(404).end();
 });
+
+export default router;

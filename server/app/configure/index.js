@@ -1,13 +1,20 @@
+/* jshint esversion:6 */
+/* jshint node: true */
 'use strict';
-module.exports = function (app) {
+
+import appVariables from './app-variables';
+import staticMiddleware from './static-middleware';
+import parsingMiddleware from './parsing-middleware';
+
+export default app => {
     app.setValue = app.set.bind(app);
-    app.getValue = function (path) {
+    app.getValue = path => {
         return app.get(path);
     };
 
-    require('./app-variables')(app);
-    require('./static-middleware')(app);
-    require('./parsing-middleware')(app);
+    appVariables(app);
+    staticMiddleware(app);
+    parsingMiddleware(app);
 
     app.use(app.getValue('log'));
 };

@@ -1,9 +1,11 @@
+/* jshint esversion:6 */
+/* jshint node: true */
 'use strict';
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 
-module.exports = function (app) {
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 
+export default app => {
     // Important to have this before any session middleware
     // because what is a session without a cookie?
     // No session at all.
