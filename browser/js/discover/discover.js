@@ -16,7 +16,7 @@ app.controller('discoverController', ($scope, $sce, $stateParams, $state, Artist
         $scope.currArtist = $scope.artistData.name;
     }
 
-    $scope.nextInfluencer = (artistName) => {
+    $scope.nextInfluencer = artistName => {
         let influencer;
 
         return ArtistInfluences.getArtistInfluences(artistName).then(artist => {

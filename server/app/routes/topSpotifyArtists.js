@@ -39,12 +39,39 @@ function filter(topTracks) {
 }
 
 router.get('/', (req, res) => {
-    topSpotifyTracks().then(topTracks => {
-        res.json(filter(topTracks));
-    }).catch(error => {
-        console.log('Failed to get top Spotify tracks');
-        res.json(error);
-    });
+    let sampleArtists = [{
+        "artist_name": "Nick Jonas",
+        "artist_url": "https://play.spotify.com/artist/4Rxn7Im3LGfyRkY2FlHhWi"
+    }, {
+        "artist_name": "Blake Shelton",
+        "artist_url": "https://play.spotify.com/artist/1UTPBmNbXNTittyMJrNkvw"
+    }, {
+        "artist_name": "Kendrick Lamar",
+        "artist_url": "https://play.spotify.com/artist/2YZyLoL8N0Wb9xBt1NhZWg"
+    }, {
+        "artist_name": "Ed Sheeran",
+        "artist_url": "https://play.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"
+    }, {
+        "artist_name": "I LOVE MAKONNEN",
+        "artist_url": "https://play.spotify.com/artist/3aGFCoR8xGN6DKwvdzeSja"
+    }, {
+        "artist_name": "Drake",
+        "artist_url": "https://play.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
+    }, {
+        "artist_name": "Rae Sremmurd",
+        "artist_url": "https://play.spotify.com/artist/7iZtZyCzp3LItcw1wtPI3D"
+    }, {
+        "artist_name": "Pitbull",
+        "artist_url": "https://play.spotify.com/artist/0TnOYISbd1XYRBk9myaseg"
+    }, {
+        "artist_name": "Maroon 5",
+        "artist_url": "https://play.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"
+    }, {
+        "artist_name": "Calvin Harris",
+        "artist_url": "https://play.spotify.com/artist/7CajNmpbOovFoOoasH2HaY"
+    }];
+
+    res.json(sampleArtists);
 });
 
 router.get('/artistData', (req, res) => {    
