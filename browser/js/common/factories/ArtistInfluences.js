@@ -1,13 +1,13 @@
-app.factory('ArtistInfluences', function ($http) {
+/* jshint esversion:6 */
+
+app.factory('ArtistInfluences', ($http) => {
     return {
-        getArtistInfluences: function(artistName) {
-            return $http.get('/api/artistInfluences/' + artistName)
-                .then(function(response) {
-                    return response.data;
-                })
-                .catch(function(err) {
-                    return err;
-                });
+        getArtistInfluences: artistName => {
+            return $http.get('/api/artistInfluences/' + artistName).then(response => {
+                return response.data;
+            }).catch(err => {
+                return err;
+            });
         }
     };
 });

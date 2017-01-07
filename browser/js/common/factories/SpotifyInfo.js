@@ -1,13 +1,13 @@
-app.factory('SpotifyInfo', function ($http) {
+/* jshint esversion:6 */
+
+app.factory('SpotifyInfo', ($http) => {
     return {
-        searchForArtist: function(artistName) {
-            return $http.get('/api/influencerData/' + artistName)
-                .then(function(response) {
-                    return response.data;
-                })
-                .catch(function(err) {
-                    return err;
-                });
+        searchForArtist: artistName => {
+            return $http.get('/api/influencerData/' + artistName).then(response => {
+                return response.data;
+            }).catch(err => {
+                return err;
+            });
         }
     };
 });
