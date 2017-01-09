@@ -1,6 +1,6 @@
 /* jshint esversion:6 */
 
-app.factory('CurrentTopArtists', ($http) => {
+app.factory('CurrentTopArtistsFactory', ($http) => {
     return {
         getCurrentTopArtists: () => {
             return $http.get('/api/topSpotifyArtists').then(response => {

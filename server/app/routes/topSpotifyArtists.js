@@ -4,38 +4,12 @@
 
 import express from 'express';
 import requestPromise from 'request-promise';
-import _ from 'lodash';
 import Q from 'q';
 
 let router = express.Router();
 
-function topSpotifyTracks() {
-    return requestPromise('http://charts.spotify.com/api/tracks/most_streamed/us/daily/latest').then(body => {
-        let topTracks = JSON.parse(body).tracks;
-
-        topTracks.sort(() => {
-            return 0.5 - Math.random();
-        });
-
-        return topTracks;
-    });
-}
-
 function getArtistIdFromSpotifyURI(spotifyURI) {
     return spotifyURI.slice(32);
-}
-
-// returns only unique artists in topTracks list 
-function filter(topTracks) {
-    let hash = {};
-
-    for (let i = 0; i < topTracks.length; i++) {
-        if (hash[topTracks[i].artist_name] === undefined) {
-            hash[topTracks[i].artist_name] = _.pick(topTracks[i], 'artist_name', 'artist_url');
-        }
-    }
-
-    return _.values(hash);
 }
 
 router.get('/', (req, res) => {

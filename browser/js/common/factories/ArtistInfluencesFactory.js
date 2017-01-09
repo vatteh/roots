@@ -1,6 +1,6 @@
 /* jshint esversion:6 */
 
-app.factory('ArtistInfluences', ($http) => {
+app.factory('ArtistInfluencesFactory', ($http) => {
     return {
         getArtistInfluences: artistName => {
             return $http.get('/api/artistInfluences/' + artistName).then(response => {
