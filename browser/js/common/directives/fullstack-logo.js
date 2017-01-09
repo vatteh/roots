@@ -3,6 +3,6 @@
 app.directive('fullstackLogo', () => {
     return {
         restrict: 'E',
-        templateUrl: 'js/common/directives/fullstack-logo/fullstack-logo.html'
+        template: `<img src="https://jlau-bucket-1.s3.amazonaws.com/uploads/topic/image/42/fullstack.png"/>`
     };
 });

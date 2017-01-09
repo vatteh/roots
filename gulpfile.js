@@ -40,10 +40,10 @@ gulp.task('lintJS', function () {
 gulp.task('buildJS', ['lintJS'], function () {
     return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
         .pipe(plumber())
-        // .pipe(sourcemaps.init())
+        .pipe(sourcemaps.init())
         .pipe(concat('main.js'))
         .pipe(babel())
-        // .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public'));
 });
 

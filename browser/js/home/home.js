@@ -1,14 +1,6 @@
 /* jshint esversion:6 */
 
-app.config(($stateProvider) => {
-    $stateProvider.state('home', {
-        url: '/',
-        templateUrl: 'js/home/home.html',
-        controller: 'HomeCtrl'
-    });
-});
-
-app.controller('HomeCtrl', ($scope, $state, $q, CurrentTopArtists, ArtistInfluences, SpotifyInfo) => {
+app.controller('HomeController', ($scope, $state, $q, CurrentTopArtists, ArtistInfluences, SpotifyInfo) => {
     $scope.initializeHomePage = () => {
         return CurrentTopArtists.getCurrentTopArtists().then(response => {
             $scope.currentTopArtists = response;

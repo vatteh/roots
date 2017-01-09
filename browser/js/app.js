@@ -1,7 +1,7 @@
 /* jshint esversion:6 */
 'use strict';
 
-window.app = angular.module('Roots', ['ui.router', 'ui.bootstrap', 'wu.masonry', 'ngAnimate', 'ngSanitize']);
+let app = angular.module('Roots', ['ui.router', 'ui.bootstrap', 'wu.masonry', 'ngAnimate', 'ngSanitize']);
 
 app.config(($urlRouterProvider, $locationProvider) => {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)

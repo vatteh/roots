@@ -1,15 +1,6 @@
 /* jshint esversion:6 */
 
-app.config(($stateProvider) => {
-    $stateProvider.state('discover', {
-        url: '/discover',
-        templateUrl: 'js/discover/discover.html',
-        controller: 'discoverController',
-        params:  {'artistData': null}
-    });
-});
-
-app.controller('discoverController', ($scope, $sce, $stateParams, $state, ArtistInfluences, SpotifyInfo) => {
+app.controller('DiscoverController', ($scope, $sce, $stateParams, $state, ArtistInfluences, SpotifyInfo) => {
     function switchArtistInfo(data) {
         $scope.artistData = data;
         $scope.recording = $sce.trustAsResourceUrl($scope.artistData.artistFirstTopTrack.preview_url);
