@@ -1,21 +1,7 @@
 /* jshint esversion:6 */
 
-app.controller('HomeController', function($scope, $state, $q, CurrentTopArtistsFactory, ArtistInfluencesFactory, SpotifyInfoFactory, currentTopArtists, displayedArtists) {
-    this.currentTopArtists = currentTopArtists;
-    this.displayedArtists = displayedArtists;
-
-    this.getMoreArtists = () => {
-        if (!this.currentTopArtists || this.currentTopArtists.length === 0) {
-            return $q.when();
-        }
-        
-        let removed = this.currentTopArtists.splice(0, 10);
-        return CurrentTopArtistsFactory.getArtistData(removed).then(response => {
-            this.displayedArtists = this.displayedArtists.concat(response);
-        }).catch(() => {
-            throw new Error('Colud not get more spotify artists!');
-        });
-    };
+app.controller('HomeController', function($scope, $state, $q, CurrentTopArtistsFactory, ArtistInfluencesFactory, SpotifyInfoFactory, currentTopArtists) {
+    this.displayedArtists = currentTopArtists;
 
     this.startDiscovery = artistName => {
         let influencer;

@@ -8,9 +8,6 @@ app.config(($stateProvider) => {
         resolve: { 
             currentTopArtists: CurrentTopArtistsFactory => {
                 return CurrentTopArtistsFactory.getCurrentTopArtists();
-            },
-            displayedArtists: (CurrentTopArtistsFactory, currentTopArtists) => {
-                return CurrentTopArtistsFactory.getArtistData(currentTopArtists.splice(0, 10));
             }
         }
     });

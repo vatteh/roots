@@ -7,54 +7,58 @@ import requestPromise from 'request-promise';
 import Q from 'q';
 
 let router = express.Router();
+let NUM_HOME_SCREEN_ARTISTS = 5;
+let sampleArtists = [{
+    "artist_name": "Steve Aoki",
+    "artist_id": "77AiFEVeAVj2ORpC85QVJs"
+}, {
+    "artist_name": "Justin Bieber",
+    "artist_id": "1uNFoZAHBGtllmzznpCI3s"
+}, {
+    "artist_name": "The Black Keys",
+    "artist_id": "7mnBLXK823vNxN3UWB7Gfz"
+}, {
+    "artist_name": "One Direction",
+    "artist_id": "4AK6F7OLvEQ5QYCBNiQWHq"
+}, {
+    "artist_name": "Rihanna",
+    "artist_id": "5pKCCKE2ajJHZ9KAiaK11H"
+}, {
+    "artist_name": "The Weeknd",
+    "artist_id": "1Xyo4u8uXC1ZmMpatF05PJ"
+}, {
+    "artist_name": "Adele",
+    "artist_id": "4dpARuHxo51G3z768sgnrY"
+}, {
+    "artist_name": "Blake Shelton",
+    "artist_id": "1UTPBmNbXNTittyMJrNkvw"
+}, {
+    "artist_name": "Kendrick Lamar",
+    "artist_id": "2YZyLoL8N0Wb9xBt1NhZWg"
+}, {
+    "artist_name": "Ed Sheeran",
+    "artist_id": "6eUKZXaKkcviH0Ku9w2n3V"
+}, {
+    "artist_name": "Drake",
+    "artist_id": "3TVXtAsR1Inumwj472S9r4"
+}, {
+    "artist_name": "Calvin Harris",
+    "artist_id": "7CajNmpbOovFoOoasH2HaY"
+}];
 
-function getArtistIdFromSpotifyURI(spotifyURI) {
-    return spotifyURI.slice(32);
+function shuffleArray(array) {
+    for (let i = array.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [array[i - 1], array[j]] = [array[j], array[i - 1]];
+    }
 }
 
 router.get('/', (req, res) => {
-    let sampleArtists = [{
-        "artist_name": "Nick Jonas",
-        "artist_url": "https://play.spotify.com/artist/4Rxn7Im3LGfyRkY2FlHhWi"
-    }, {
-        "artist_name": "Blake Shelton",
-        "artist_url": "https://play.spotify.com/artist/1UTPBmNbXNTittyMJrNkvw"
-    }, {
-        "artist_name": "Kendrick Lamar",
-        "artist_url": "https://play.spotify.com/artist/2YZyLoL8N0Wb9xBt1NhZWg"
-    }, {
-        "artist_name": "Ed Sheeran",
-        "artist_url": "https://play.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V"
-    }, {
-        "artist_name": "I LOVE MAKONNEN",
-        "artist_url": "https://play.spotify.com/artist/3aGFCoR8xGN6DKwvdzeSja"
-    }, {
-        "artist_name": "Drake",
-        "artist_url": "https://play.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
-    }, {
-        "artist_name": "Rae Sremmurd",
-        "artist_url": "https://play.spotify.com/artist/7iZtZyCzp3LItcw1wtPI3D"
-    }, {
-        "artist_name": "Pitbull",
-        "artist_url": "https://play.spotify.com/artist/0TnOYISbd1XYRBk9myaseg"
-    }, {
-        "artist_name": "Maroon 5",
-        "artist_url": "https://play.spotify.com/artist/04gDigrS5kc9YWfZHwBETP"
-    }, {
-        "artist_name": "Calvin Harris",
-        "artist_url": "https://play.spotify.com/artist/7CajNmpbOovFoOoasH2HaY"
-    }];
-
-    res.json(sampleArtists);
-});
-
-router.get('/artistData', (req, res) => {    
-    let artists = JSON.parse(req.query.artists);
     let promises = [];
+    shuffleArray(sampleArtists);
 
-    for (let i = 0; i < artists.length; i++) {
-        let artistId = getArtistIdFromSpotifyURI(artists[i].artist_url);
-        promises.push(requestPromise('https://api.spotify.com/v1/artists/' + artistId));
+    for (let i = 0; i < NUM_HOME_SCREEN_ARTISTS; i++) {
+        promises.push(requestPromise('https://api.spotify.com/v1/artists/' + sampleArtists[i].artist_id));
     }
 
     Q.all(promises).then(topArtists => {

@@ -8,15 +8,6 @@ app.factory('CurrentTopArtistsFactory', ($http) => {
             }).catch(err => {
                 return err;
             });
-        },
-        getArtistData: artists => {
-            let params = {artists: JSON.stringify(artists)};
-
-            return $http.get('/api/topSpotifyArtists/artistData', {params: params}).then(response => {
-                return response.data;
-            }).catch(err => {
-                return err;
-            });
         }
     };
 });
