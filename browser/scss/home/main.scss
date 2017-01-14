@@ -9,15 +9,42 @@
         margin-top: 40px;
         text-align: center;
     }
-    .resize {
-        width: 590px;
+    .main {
+        width: 900px;
+        margin: 0 auto;
+        height: 550px;
+        background-color: transparent;
+        overflow: hidden;
     }
-    .masonry-brick {
-        margin: 5px;
-        display: none;
-    }
-    .masonry-brick.loaded {
-        display: block;
+    .artist-choices-container {
+        width: 1000px;
+        margin: 0 auto;
+
+        .artist-container {
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            -webkit-transition-duration: 2s;
+            -moz-transition-duration: 2s;
+            -o-transition-duration: 2s;
+            -ms-transition-duration: 2s;
+            transition-duration: 2s;
+
+            .artist-image {
+                cursor: pointer;
+                margin: 0 auto;
+                width: 80%;
+                height: 80%;
+                border-radius: 50%;
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+                opacity: 0.4;
+                filter: alpha(opacity=40); /* For IE8 and earlier */
+                &:hover {
+                    opacity: 1.0;
+                    filter: alpha(opacity=100); /* For IE8 and earlier */
+                }
+            }
+        }
     }
     figure {
         font-family: 'Raleway', Arial, sans-serif;

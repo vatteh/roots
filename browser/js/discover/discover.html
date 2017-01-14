@@ -1,10 +1,10 @@
-<div class="page {{ pageClass }}">
-    <h1 style="color: white" ng-bind="'Influenced By: ' + ctrl.currArtist"></h1>
-    <h2 ng-bind="'Song Name: ' + ctrl.artistData.artistFirstTopTrack.name"></h2>
-    <img style="height:450px; border-width: 5px; border-style: solid; border-color: white" ng-src="{{ctrl.artistData.artistImageURL}}" />
-    <div class="row" style='padding: 10px;'>
-        <a ng-click="ctrl.nextInfluencer(ctrl.currArtist)" class="btn btn-success btn-lg" ng-bind="'Who Influenced ' + ctrl.currArtist + '?'"></a>
-        <a ng-href="home" class="btn btn-warning btn-lg">Home</a>
+<div class='page {{ pageClass }}'>
+    <h1 style='color: white' ng-bind='"Influenced By: " + ctrl.currArtist'></h1>
+    <h2 ng-bind='"Song Name: " + ctrl.artistData.artistFirstTopTrack.name'></h2>
+    <img style='height:450px; border-width: 5px; border-style: solid; border-color: white' ng-src='{{ctrl.artistData.artistImageURL}}' />
+    <div class='row' style='padding: 10px;'>
+        <a ng-click='ctrl.nextInfluencer(ctrl.currArtist)' class='btn btn-success btn-lg' ng-bind='"Who Influenced " + ctrl.currArtist + "?"'></a>
+        <a ng-href='home' class='btn btn-warning btn-lg'>Home</a>
     </div>
-    <iframe width="0" height="0" class="visibility: none" ng-src="{{ctrl.recording}}" frameborder="0">
+    <iframe width='0' height='0' class='visibility: none' ng-src='{{ctrl.recording}}' frameborder='0'>
 </div>
