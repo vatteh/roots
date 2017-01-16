@@ -4,8 +4,8 @@
         <h3>Display stuff here!!!!</h3>
     </div>
     <div class='artist-choices-container'>
-        <div class='artist-container' ng-repeat='artist in ctrl.displayedArtists'>
-            <img class='artist-image' ng-click='ctrl.startDiscovery(artist.name)' ng-src='{{artist.images[0].url}}'/>
+        <div ng-repeat='artist in ctrl.displayedArtists' class='artist-container' ng-class='{"hide-artist": ctrl.artistChosen && !artist.selected, "hide-selected-artist": artist.selected}'>
+            <img class='artist-image' ng-class='{"highlight-selected-artist": artist.selected}' ng-click='ctrl.startDiscovery(artist)' ng-src='{{artist.images[0].url}}'/> 
         </div>
     </div>
 </section>
