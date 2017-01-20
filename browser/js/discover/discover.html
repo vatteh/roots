@@ -1,12 +1,12 @@
 <div class='page'>
     <div class='container'>
         <div class='row' style='margin-top: 50px;'>
-            <div class='col-sm-4' style='overflow: hidden; text-align: center;'>
-                <img style='height:350px; margin:0 -100%' ng-src='{{ctrl.artistData.artistImageURL}}' />
+            <div class='col-sm-4' style='overflow: hidden;'>
+                <img class='artist-image' ng-src='{{ctrl.artistData.artistImageURL}}' />
             </div>
             <div class='col-sm-8' style='text-align: left; overflow: scroll;'>
-                <h1 ng-bind='ctrl.currArtist' style='margin-top: 0'></h1>
-                <hr noshade style="border-top: 3px solid; margin-top: 0">
+                <h1 ng-bind='ctrl.currArtist' class='no-margin-top'></h1>
+                <hr noshade class='no-margin-top divider'>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
