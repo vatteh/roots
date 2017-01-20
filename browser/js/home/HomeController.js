@@ -3,11 +3,6 @@
 app.controller('HomeController', function($scope, $state, $q, CurrentTopArtistsFactory, ArtistInfluencesFactory, SpotifyInfoFactory, currentTopArtists) {
     this.displayedArtists = currentTopArtists;
 
-    // should probally find a smaller image to use here
-    // this.displayedArtists.forEach((artist) => {
-    //     artist.displayImage = artist.images[Math.floor(Math.random() * artist.images.length)];
-    // });
-
     this.startDiscovery = selectedArtist => {
         this.artistChosen = true;
         selectedArtist.selected = true;

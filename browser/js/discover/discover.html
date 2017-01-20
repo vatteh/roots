@@ -1,10 +1,42 @@
-<div class='page {{ pageClass }}'>
-    <h1 style='color: white' ng-bind='"Influenced By: " + ctrl.currArtist'></h1>
-    <h2 ng-bind='"Song Name: " + ctrl.artistData.artistFirstTopTrack.name'></h2>
-    <img style='height:450px; border-width: 5px; border-style: solid; border-color: white' ng-src='{{ctrl.artistData.artistImageURL}}' />
+<div class='page'>
+    <div class='container'>
+        <div class='row' style='margin-top: 50px;'>
+            <div class='col-sm-4' style='overflow: hidden; text-align: center;'>
+                <img style='height:350px; margin:0 -100%' ng-src='{{ctrl.artistData.artistImageURL}}' />
+            </div>
+            <div class='col-sm-8' style='text-align: left; overflow: scroll;'>
+                <h1 ng-bind='ctrl.currArtist' style='margin-top: 0'></h1>
+                <hr noshade style="border-top: 3px solid; margin-top: 0">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                <p> 
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+        </div>
+    </div>
     <div class='row' style='padding: 10px;'>
         <a ng-click='ctrl.nextInfluencer(ctrl.currArtist)' class='btn btn-success btn-lg' ng-bind='"Who Influenced " + ctrl.currArtist + "?"'></a>
         <a ng-href='home' class='btn btn-warning btn-lg'>Home</a>
     </div>
-    <iframe width='0' height='0' class='visibility: none' ng-src='{{ctrl.recording}}' frameborder='0'>
+    <!-- <iframe width='0' height='0' class='visibility: none' ng-src='{{ctrl.recording}}' frameborder='0'> -->
 </div>
