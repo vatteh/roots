@@ -2,25 +2,29 @@
 /* jshint node: true */
 'use strict';
 
-import requestPromise from 'request-promise';
+import request from 'request-promise-cache';
 import md5 from 'js-md5';
 import roviKeys from './roviKeys';
 
-export default {
-    getArtistInfluences: artistName => {
-        let unixTimeStamp = Math.floor(Date.now() / 1000);
-        let roviSig = md5(roviKeys.roviApiKey + roviKeys.roviSharedSecret + unixTimeStamp);
-        let roviUrl = 'http://api.rovicorp.com/data/v1.1/name/influencers?name=' + artistName.replace(/[\s]/g, "+") + '&country=US&language=en&apikey=' + roviKeys.roviApiKey + '&sig=' + roviSig;
+function getRoviSig() {
+    let unixTimeStamp = Math.floor(Date.now() / 1000);
+    return md5(roviKeys.roviApiKey + roviKeys.roviSharedSecret + unixTimeStamp);
+}
 
-        return requestPromise(roviUrl).then(body => {
-            let influencers = JSON.parse(body).influencers;
-            if (influencers.length === 0) {
-                throw new Error('No influencers were found!');
-            } else {
-                let randomArtist = influencers[Math.floor(Math.random() * influencers.length)];
-                console.log('Random influencer for ' + artistName + ': ', randomArtist.name);
-                return randomArtist;
-            }
+export default {
+    getArtistInfluences: artistId => {
+        let roviUrl = 'http://api.rovicorp.com/data/v1.1/name/influencers?nameid=' + artistId + '&country=US&language=en&apikey=' + roviKeys.roviApiKey + '&sig=' + getRoviSig();
+
+        return request({ url: roviUrl, cacheKey: artistId + '_getArtistInfluences' }).then(body => {
+            return JSON.parse(body).influencers;
+        });
+    },
+
+    getArtistBio: artistId => {
+        let roviUrl = 'http://api.rovicorp.com/data/v1.1/name/musicbio?nameid=' + artistId + '&country=US&language=English&apikey=' + roviKeys.roviApiKey + '&sig=' + getRoviSig();
+
+        return request({ url: roviUrl, cacheKey: artistId + '_getArtistBio' }).then(body => {
+            return JSON.parse(body).musicBio.musicBioOverview[0];
         });
     }
 };

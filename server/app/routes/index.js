@@ -4,13 +4,13 @@
 
 import express from 'express';
 import artistInfluences from './artistInfluences';
-import influencerData from './influencerData';
+import artistData from './artistData';
 import topSpotifyArtists from './topSpotifyArtists';
 
 let router = express.Router();
 
 router.use('/artistInfluences', artistInfluences);
-router.use('/influencerData', influencerData);
+router.use('/artistData', artistData);
 router.use('/topSpotifyArtists', topSpotifyArtists);
 
 // Make sure this is after all of
