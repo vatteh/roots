@@ -3,13 +3,13 @@
 'use strict';
 
 import express from 'express';
-import artistInfluences from './artistInfluences';
+import artistInfluencers from './artistInfluencers';
 import artistData from './artistData';
 import topSpotifyArtists from './topSpotifyArtists';
 
 let router = express.Router();
 
-router.use('/artistInfluences', artistInfluences);
+router.use('/artistInfluencers', artistInfluencers);
 router.use('/artistData', artistData);
 router.use('/topSpotifyArtists', topSpotifyArtists);
 
