@@ -12,7 +12,7 @@ function removeRandomElement(array) {
 }
 
 function getThumbnailImage(images) {
-    for (let i = images.length; i >=0; i--) {
+    for (let i = images.length - 1; i >= 0; i--) {
         if (images[i].height > 200 && images[i].width > 200) {
             return images[i];
         }
@@ -24,28 +24,32 @@ function getThumbnailImage(images) {
 let router = express.Router();
 router.get('/:artistRoviID', (req, res) => {
     let influencers;
-    let selectedArtists = [];
+    let selectedInfluencers = [];
     utilsService.getArtistInfluencers(req.params.artistRoviID).then(data => {
         influencers = data;
-        while (selectedArtists.length < 5 && influencers.length) {
-            selectedArtists.push(removeRandomElement(influencers));
+        while (selectedInfluencers.length < 5 && influencers.length) {
+            selectedInfluencers.push(removeRandomElement(influencers));
         }
 
         let promises = [];
-        selectedArtists.forEach(artist => {
+        selectedInfluencers.forEach(artist => {
             promises.push(utilsService.getArtistSpotifyData(artist.name));
         });
 
         return Q.all(promises);
     }).then(data => {
-        selectedArtists.map((artist, index) => {
+        selectedInfluencers.map((artist, index) => {
             if (data[index]) {
                 artist.spotifyThumbnail = getThumbnailImage(data[index].images);
                 return artist;
             }
+
+            return null;
+        }).filter(artist => {
+            return artist;
         });
 
-        res.json(selectedArtists);
+        res.json(selectedInfluencers);
     }).catch(error => {
         res.json(error);
     });

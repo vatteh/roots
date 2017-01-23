@@ -15,21 +15,23 @@ export default {
     getArtistInfluencers: artistId => {
         let url = 'http://api.rovicorp.com/data/v1.1/name/influencers?nameid=' + artistId + '&country=US&language=en&apikey=' + roviKeys.roviApiKey + '&sig=' + getRoviSig();
 
-        return request({ url: url, cacheKey: artistId + '_getArtistInfluences' }).then(body => {
-            return JSON.parse(body).influencers;
+        return request({ url: url, cacheKey: artistId + '_getArtistInfluences' }).then(response => {
+            return JSON.parse(response.body).influencers;
+        }).catch(error => {
+            return [];
         });
     },
     getArtistBio: artistId => {
         let url = 'http://api.rovicorp.com/data/v1.1/name/musicbio?nameid=' + artistId + '&country=US&language=English&apikey=' + roviKeys.roviApiKey + '&sig=' + getRoviSig();
 
-        return request({ url: url, cacheKey: artistId + '_getArtistBio' }).then(body => {
-            return JSON.parse(body).musicBio.musicBioOverview[0];
+        return request({ url: url, cacheKey: artistId + '_getArtistBio' }).then(response => {
+            return JSON.parse(response.body).musicBio.musicBioOverview[0];
         });
     },
     getArtistSpotifyData: artistName => {
         let url = "https://api.spotify.com/v1/search?q=" + artistName + "&type=artist";
-        return request({ url: url, cacheKey: artistName + '_getArtistSpotifyData'}).then(body => {
-            return JSON.parse(body).artists.items[0];
+        return request({ url: url, cacheKey: artistName + '_getArtistSpotifyData'}).then(response => {
+            return JSON.parse(response.body).artists.items[0];
         });
     }
 };
