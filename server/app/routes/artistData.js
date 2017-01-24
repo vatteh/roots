@@ -10,10 +10,21 @@ import utilsService from '../utilsService';
 
 let router = express.Router();
 
+function removeRandomElement(array) {
+    return array.splice(Math.floor(Math.random() * array.length), 1)[0];
+}
+
 function getTopTracks(artistSpotifyID) {
     let url = "https://api.spotify.com/v1/artists/" + artistSpotifyID + "/top-tracks?country=US";
-    return request({ url: url, cacheKey: artistSpotifyID + '_getTopTracks'}).then(body => {
-        return JSON.parse(body).tracks;
+    return request({ url: url, cacheKey: artistSpotifyID + '_getTopTracks'}).then(response => {
+        var topTracks = JSON.parse(response.body).tracks;
+        var pickedTracks = [];
+
+        pickedTracks.push(removeRandomElement(topTracks));
+        pickedTracks.push(removeRandomElement(topTracks));
+        pickedTracks.push(removeRandomElement(topTracks));
+
+        return pickedTracks;
     });
 }
 
@@ -29,7 +40,7 @@ router.get('/', (req, res) => {
             artistTopTracks: data[1],
             artistBio: data[2]
         });
-    }).catch(() => {
+    }).catch(error => {
         res.json(null);
     });
 });
