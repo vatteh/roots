@@ -5,13 +5,13 @@
 import express from 'express';
 import artistInfluencers from './artistInfluencers';
 import artistData from './artistData';
-import topSpotifyArtists from './topSpotifyArtists';
+import topPresentDayArtists from './topPresentDayArtists';
 
 let router = express.Router();
 
 router.use('/artistInfluencers', artistInfluencers);
 router.use('/artistData', artistData);
-router.use('/topSpotifyArtists', topSpotifyArtists);
+router.use('/topPresentDayArtists', topPresentDayArtists);
 
 // Make sure this is after all of
 // the registered routes!

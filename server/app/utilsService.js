@@ -33,5 +33,17 @@ export default {
         return request({ url: url, cacheKey: artistName + '_getArtistSpotifyData' }).then(response => {
             return JSON.parse(response.body).artists.items[0];
         });
+    },
+    getThumbnailImage(images) {
+        for (let i = images.length - 1; i >= 0; i--) {
+            if (images[i].height > 200 && images[i].width > 200) {
+                return images[i];
+            }
+        }
+
+        return images[0];
+    },
+    removeRandomElement(array) {
+        return array.splice(Math.floor(Math.random() * array.length), 1)[0];
     }
 };
