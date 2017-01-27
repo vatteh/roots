@@ -5,7 +5,7 @@
     </div>
     <div class='artist-choices-container'>
         <div ng-repeat='artist in ctrl.displayedArtists' class='artist-container' ng-class='{"hide-artist": ctrl.artistChosen && !artist.selected, "hide-selected-artist": artist.selected}'>
-            <img class='artist-image' ng-class='{"highlight-selected-artist": artist.selected}' ng-click='ctrl.startDiscovery(artist)' ng-src='{{artist.images[0].url}}' />
+            <img class='artist-image' ng-class='{"highlight-selected-artist": artist.selected}' ng-click='ctrl.startDiscovery(artist)' ng-src='{{artist.spotifyThumbnail.url}}' />
         </div>
     </div>
 </section>
