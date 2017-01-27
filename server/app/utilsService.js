@@ -18,6 +18,7 @@ export default {
         return request({ url: url, cacheKey: artistId + '_getArtistInfluences' }).then(response => {
             return JSON.parse(response.body).influencers;
         }).catch(error => {
+            console.log('Could not find artist influencers, returning none', error.body);
             return [];
         });
     },
@@ -34,7 +35,7 @@ export default {
             return JSON.parse(response.body).artists.items[0];
         });
     },
-    getThumbnailImage(images) {
+    getThumbnailImage: images => {
         for (let i = images.length - 1; i >= 0; i--) {
             if (images[i].height > 200 && images[i].width > 200) {
                 return images[i];
@@ -43,7 +44,7 @@ export default {
 
         return images[0];
     },
-    removeRandomElement(array) {
+    removeRandomElement: array => {
         return array.splice(Math.floor(Math.random() * array.length), 1)[0];
     }
 };

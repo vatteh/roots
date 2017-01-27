@@ -10,9 +10,9 @@ import utilsService from '../utilsService';
 
 let router = express.Router();
 
-function getTopTracks(artistSpotifyID) {
-    let url = "https://api.spotify.com/v1/artists/" + artistSpotifyID + "/top-tracks?country=US";
-    return request({ url: url, cacheKey: artistSpotifyID + '_getTopTracks'}).then(response => {
+function getTopTracks(spotifyID) {
+    let url = "https://api.spotify.com/v1/artists/" + spotifyID + "/top-tracks?country=US";
+    return request({ url: url, cacheKey: spotifyID + '_getTopTracks'}).then(response => {
         var topTracks = JSON.parse(response.body).tracks;
         var pickedTracks = [];
 
@@ -24,20 +24,21 @@ function getTopTracks(artistSpotifyID) {
     });
 }
 
-// Given a artistRoviID, artistName, & artistSpotifyID, return artist info, tracks, & bio
+// Given a roviID, name, & spotifyID, return artist info, tracks, & bio
 router.get('/', (req, res) => {
     Q.all([
-        utilsService.getArtistSpotifyData(req.query.artistName), 
-        getTopTracks(req.query.artistSpotifyID), 
-        utilsService.getArtistBio(req.query.artistRoviID)
+        utilsService.getArtistSpotifyData(req.query.name), 
+        getTopTracks(req.query.spotifyID), 
+        utilsService.getArtistBio(req.query.roviID)
     ]).then(data => {
         res.json({
-            artistData: data[0],
-            artistTopTracks: data[1],
-            artistBio: data[2]
+            data: data[0],
+            topTracks: data[1],
+            bio: data[2]
         });
     }).catch(error => {
-        res.json(null);
+        console.log('Could not get artist data');
+        res.json(error);
     });
 });
 

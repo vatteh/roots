@@ -38,6 +38,7 @@ router.get('/:artistRoviID', (req, res) => {
 
         res.json(selectedInfluencers);
     }).catch(error => {
+        console.log('Error getting artist influencers', error);
         res.json(error);
     });
 });
