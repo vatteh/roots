@@ -26,7 +26,9 @@ export default {
         let url = 'http://api.rovicorp.com/data/v1.1/name/musicbio?nameid=' + artistId + '&country=US&language=English&apikey=' + roviKeys.roviApiKey + '&sig=' + getRoviSig();
 
         return request({ url: url, cacheKey: artistId + '_getArtistBio' }).then(response => {
-            return JSON.parse(response.body).musicBio.musicBioOverview[0];
+            var bio = JSON.parse(response.body).musicBio.musicBioOverview[0];
+            bio.overview = bio.overview.replace(/\[\/?[^\]]+(\])/g, "");
+            return bio;
         });
     },
     getArtistSpotifyData: artistName => {
