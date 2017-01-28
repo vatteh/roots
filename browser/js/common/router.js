@@ -18,12 +18,12 @@ app.config(($stateProvider) => {
         controller: 'DiscoverController as ctrl',
         params: { 'artistData': null },
         resolve: {
-            artistInfo: ($stateParams, $state, APIFactory) => {
-                if (!$stateParams.artistData) {
-                    $state.go('home');
+            artistInfo: ($stateParams, APIFactory) => {
+                if ($stateParams.artistData) {
+                    return APIFactory.getArtistData($stateParams.artistData);
+                } else {
+                    return null;
                 }
-
-                return APIFactory.getArtistData($stateParams.artistData);
             }
         }
     });

@@ -2,6 +2,10 @@
 
 app.controller('DiscoverController', function($scope, $sce, $stateParams, $state, APIFactory, artistInfo) {
     this.switchArtistInfo = info => {
+        if (!info) {
+            $state.go('home');
+        }
+        
         this.artistInfo = info;
         this.recording = $sce.trustAsResourceUrl(this.artistInfo.topTracks[0].preview_url);
     };
