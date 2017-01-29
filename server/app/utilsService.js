@@ -17,24 +17,44 @@ export default {
 
         return request({ url: url, cacheKey: artistId + '_getArtistInfluences' }).then(response => {
             return JSON.parse(response.body).influencers;
-        }).catch(error => {
-            console.log('Could not find artist influencers, returning none', error.body);
+        }).catch(() => {
+            console.log('Could not find artist influencers for ' + artistId);
             return [];
         });
     },
     getArtistBio: artistId => {
         let url = 'http://api.rovicorp.com/data/v1.1/name/musicbio?nameid=' + artistId + '&country=US&language=English&apikey=' + roviKeys.roviApiKey + '&sig=' + getRoviSig();
 
+        function stripRoviData(text, author) {
+            return text.replace(/\[\/?[^\]]+(\])/g, '').replace(' ~ ' + author, '');
+        }
+
         return request({ url: url, cacheKey: artistId + '_getArtistBio' }).then(response => {
-            var bio = JSON.parse(response.body).musicBio.musicBioOverview[0];
-            bio.overview = bio.overview.replace(/\[\/?[^\]]+(\])/g, "");
-            return bio;
+            let roviBioData = JSON.parse(response.body).musicBio;
+
+            if (roviBioData.musicBioOverview[0]) {
+                return {
+                    text: stripRoviData(roviBioData.musicBioOverview[0].overview, roviBioData.musicBioOverview[0].author),
+                    author: roviBioData.musicBioOverview[0].author
+                };  
+            } else {
+                return {
+                    text: stripRoviData(roviBioData.text, roviBioData.author),
+                    author: roviBioData.author
+                };
+            }
+        }).catch(() => {
+            console.log('No bio found for ' + artistId);
+            return null;
         });
     },
     getArtistSpotifyData: artistName => {
         let url = "https://api.spotify.com/v1/search?q=" + artistName + "&type=artist";
         return request({ url: url, cacheKey: artistName + '_getArtistSpotifyData' }).then(response => {
             return JSON.parse(response.body).artists.items[0];
+        }).catch(() => {
+            console.log('No spotify data found for ' + artistName);
+            return null;
         });
     },
     getThumbnailImage: images => {

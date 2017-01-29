@@ -13,12 +13,14 @@ let router = express.Router();
 function getTopTracks(spotifyID) {
     let url = "https://api.spotify.com/v1/artists/" + spotifyID + "/top-tracks?country=US";
     return request({ url: url, cacheKey: spotifyID + '_getTopTracks'}).then(response => {
-        var topTracks = JSON.parse(response.body).tracks;
-        var pickedTracks = [];
+        let topTracks = JSON.parse(response.body).tracks;
+        let pickedTracks = [];
 
-        pickedTracks.push(utilsService.removeRandomElement(topTracks));
-        pickedTracks.push(utilsService.removeRandomElement(topTracks));
-        pickedTracks.push(utilsService.removeRandomElement(topTracks));
+        for (let i = 0; i < 3; i++) {
+            if (topTracks.length) {
+                pickedTracks.push(utilsService.removeRandomElement(topTracks));
+            }
+        }
 
         return pickedTracks;
     });

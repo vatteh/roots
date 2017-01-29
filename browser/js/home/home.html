@@ -3,9 +3,5 @@
     <div class='main'>
         <h3>Display stuff here!!!!</h3>
     </div>
-    <div class='artist-choices-container'>
-        <div ng-repeat='artist in ctrl.displayedArtists' class='artist-container' ng-class='{"hide-artist": ctrl.artistChosen && !artist.selected, "hide-selected-artist": artist.selected}'>
-            <img class='artist-image' ng-class='{"highlight-selected-artist": artist.selected}' ng-click='ctrl.startDiscovery(artist)' ng-src='{{artist.spotifyThumbnail.url}}' />
-        </div>
-    </div>
+    <influnecers artists='ctrl.presentDayArtists'></influnecers>
 </section>

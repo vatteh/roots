@@ -2,7 +2,7 @@
 
 app.controller('HomeController', function($state, presentDayArtists) {
     this.artistChosen = false;
-    this.displayedArtists = presentDayArtists;
+    this.presentDayArtists = presentDayArtists;
 
     this.startDiscovery = selectedArtist => {
         this.artistChosen = true;

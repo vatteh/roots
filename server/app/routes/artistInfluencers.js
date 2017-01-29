@@ -25,7 +25,7 @@ router.get('/:artistRoviID', (req, res) => {
         return Q.allSettled(promises);
     }).then(data => {
         let filteredSelectedInfluencers = selectedInfluencers.map((artist, index) => {
-            if (data[index].state === "fulfilled" && data[index].value.images) {
+            if (data[index].state === 'fulfilled' && data[index].value && data[index].value.images.length) {
                 artist.spotifyThumbnail = utilsService.getThumbnailImage(data[index].value.images);
                 artist.spotifyId = data[index].value.id;
                 return artist;
