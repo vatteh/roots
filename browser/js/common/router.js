@@ -16,11 +16,11 @@ app.config(($stateProvider) => {
         url: '/discover/',
         templateUrl: 'js/discover/discover.html',
         controller: 'DiscoverController as ctrl',
-        params: { 'artistData': null },
+        params: { 'artistThumbnailInfo': null },
         resolve: {
-            artistInfo: ($stateParams, APIFactory) => {
-                if ($stateParams.artistData) {
-                    return APIFactory.getArtistData($stateParams.artistData);
+            artistDiscoveryInfo: ($stateParams, APIFactory) => {
+                if ($stateParams.artistThumbnailInfo) {
+                    return APIFactory.getArtistData($stateParams.artistThumbnailInfo);
                 } else {
                     return null;
                 }

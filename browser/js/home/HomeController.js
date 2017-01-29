@@ -7,6 +7,6 @@ app.controller('HomeController', function($state, presentDayArtists) {
     this.startDiscovery = selectedArtist => {
         this.artistChosen = true;
         selectedArtist.selected = true;
-        $state.go('discover', { artistData: selectedArtist });
+        $state.go('discover', { artistThumbnailInfo: selectedArtist });
     };
 });

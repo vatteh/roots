@@ -9,8 +9,8 @@ app.factory('APIFactory', ($http) => {
                 return err;
             });
         },
-        getArtistInfluencers: artistName => {
-            return $http.get('/api/artistInfluences/' + artistName).then(response => {
+        getArtistInfluencers: roviID => {
+            return $http.get('/api/artistInfluencers/' + roviID).then(response => {
                 return response.data;
             }).catch(err => {
                 return err;

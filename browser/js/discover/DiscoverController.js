@@ -1,37 +1,26 @@
 /* jshint esversion:6 */
 
-app.controller('DiscoverController', function($scope, $sce, $stateParams, $state, APIFactory, artistInfo) {
-    this.switchArtistInfo = info => {
-        if (!info) {
-            $state.go('home');
-        }
-        
-        this.artistInfo = info;
-        this.recording = $sce.trustAsResourceUrl(this.artistInfo.topTracks[0].preview_url);
-    };
+app.controller('DiscoverController', function($scope, $sce, $stateParams, $state, APIFactory, artistDiscoveryInfo) {
+    if (!artistDiscoveryInfo) {
+        $state.go('home');
+    } else {
+        this.artistDiscoveryInfo = artistDiscoveryInfo;
+        // this.recording = $sce.trustAsResourceUrl(this.artistDiscoveryInfo.topTracks[0].preview_url);
 
-    this.nextInfluencer = artistName => {
-        let influencer;
+        this.nextArtist = selectedArtist => {
+            this.artistChosen = true;
+            selectedArtist.selected = true;
+        };
 
-        return APIFactory.getArtistInfluences(artistName).then(artist => {
-            if (artist.name !== 'StatusCodeError') {
-                influencer = artist.name;
-                console.log("Got influencer for " + artistName + ": " + influencer);
-                return APIFactory.searchForArtist(influencer);
-            } else {
-                throw new Error('No artist influencer found for - ' + artistName);
-            }
-        }).then(data => {
-            if (data !== null) {
-                data.name = influencer;
-                this.switchArtistInfo(data);
-            } else {
-                throw new Error('No spotify info found for influencer - ' + influencer);
-            }
-        }).catch(() => {
-            $state.go('home');
-        });
-    };
+        this.getInfluencers = () => {
+            return APIFactory.getArtistInfluencers($stateParams.artistThumbnailInfo.id).then(influencers => {
+                this.influencers = influencers;
+            }).catch(error => {
+                console.log('No influencers found for - ', $stateParams.artistThumbnailInfo.name, error);
+                $state.go('home');
+            });
+        };
 
-    this.switchArtistInfo(artistInfo);
+        this.getInfluencers();
+    }
 });

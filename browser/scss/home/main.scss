@@ -1,74 +1,72 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,800);
 $hide-artist-animation: cubic-bezier(0.560, -0.270, 1.000, 0.830);
+fullstack-logo {
+    padding-top: 30px;
+    width: 150px;
+    margin: 0 auto;
+}
 
-#home {
-    fullstack-logo {
-        padding-top: 30px;
-        width: 150px;
-        margin: 0 auto;
-    }
-    h1 {
-        margin-top: 40px;
-        text-align: center;
-    }
-    .main {
-        width: 900px;
-        margin: 0 auto;
-        height: 550px;
-        background-color: transparent;
-        overflow: hidden;
-    }
-    .artist-choices-container {
-        width: 1000px;
-        margin: 0 auto;
-        .artist-container {
-            width: 200px;
-            height: 200px;
-            display: inline-block;
-            &:nth-child(1) {
-                transition: all 0.1s $hide-artist-animation;
-            }
-            &:nth-child(2) {
-                transition: all 0.15s $hide-artist-animation;
-            }
-            &:nth-child(3) {
-                transition: all 0.2s $hide-artist-animation;
-            }
-            &:nth-child(4) {
-                transition: all 0.25s $hide-artist-animation;
-            }
-            &:nth-child(5) {
-                transition: all 0.3s $hide-artist-animation;
-            }
-            &.hide-artist {
-                transform: scale(0, 0);
-            }
-            &.hide-selected-artist {
-                transition: all 0.15s $hide-artist-animation 0.2s;
-                transform: scale(0, 0);
-            }
-            .artist-image {
-                cursor: pointer;
-                margin: 0 auto;
-                display: block;
-                margin-top: 20px;
-                width: 80%;
-                height: 80%;
-                border-radius: 50%;
-                object-fit: cover;
-                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-                opacity: 0.7;
-                transition: opacity 0.25s ease-in-out, box-shadow 0.20s ease-in-out, transform 0.1s ease-in-out, border 0.1s ease-in-out;
+h1 {
+    margin-top: 40px;
+    text-align: center;
+}
 
-                &:hover {
-                    opacity: 1.0;
-                    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-                    transform: scale(1.05, 1.05);
-                }
+.main {
+    width: 900px;
+    margin: 0 auto;
+    height: 550px;
+    background-color: transparent;
+    overflow: hidden;
+}
 
-                &.highlight-selected-artist {
-                    border: 6px solid white;
-                }
+.artist-choices-container {
+    width: 1000px;
+    margin: 0 auto;
+    .artist-container {
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+        &:nth-child(1) {
+            transition: all 0.1s $hide-artist-animation;
+        }
+        &:nth-child(2) {
+            transition: all 0.15s $hide-artist-animation;
+        }
+        &:nth-child(3) {
+            transition: all 0.2s $hide-artist-animation;
+        }
+        &:nth-child(4) {
+            transition: all 0.25s $hide-artist-animation;
+        }
+        &:nth-child(5) {
+            transition: all 0.3s $hide-artist-animation;
+        }
+        &.hide-artist {
+            transform: scale(0, 0);
+        }
+        &.hide-selected-artist {
+            transition: all 0.15s $hide-artist-animation 0.2s;
+            transform: scale(0, 0);
+        }
+        .artist-image {
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+            margin-top: 20px;
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+            opacity: 0.7;
+            transition: opacity 0.25s ease-in-out, box-shadow 0.20s ease-in-out, transform 0.1s ease-in-out, border 0.1s ease-in-out;
+            &:hover {
+                opacity: 1.0;
+                box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                transform: scale(1.05, 1.05);
+            }
+            &.highlight-selected-artist {
+                border: 6px solid white;
             }
         }
     }

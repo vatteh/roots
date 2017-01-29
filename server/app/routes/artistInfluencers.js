@@ -22,12 +22,12 @@ router.get('/:artistRoviID', (req, res) => {
             promises.push(utilsService.getArtistSpotifyData(artist.name));
         });
 
-        return Q.all(promises);
+        return Q.allSettled(promises);
     }).then(data => {
-        selectedInfluencers.map((artist, index) => {
-            if (data[index]) {
-                artist.spotifyThumbnail = utilsService.getThumbnailImage(data[index].images);
-                artist.spotifyId = data[index].id;
+        let filteredSelectedInfluencers = selectedInfluencers.map((artist, index) => {
+            if (data[index].state === "fulfilled" && data[index].value.images) {
+                artist.spotifyThumbnail = utilsService.getThumbnailImage(data[index].value.images);
+                artist.spotifyId = data[index].value.id;
                 return artist;
             }
 
@@ -36,7 +36,7 @@ router.get('/:artistRoviID', (req, res) => {
             return artist;
         });
 
-        res.json(selectedInfluencers);
+        res.json(filteredSelectedInfluencers);
     }).catch(error => {
         console.log('Error getting artist influencers', error);
         res.json(error);
