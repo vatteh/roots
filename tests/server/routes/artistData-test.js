@@ -35,4 +35,20 @@ describe('GET /artistData', function() {
             done();
         });
     });
+
+    it('should return artistInfo with no bio when given artist with no found rovi bio', function(done) {
+        var query = '?name=Grandmaster+Flash+%26+the+Furious+Five&roviID=MN0000738369&spotifyID=1JfnADNz5yYEq3hrzlZHLk';
+
+        guestAgent.get('/api/artistData/' + query).expect(200).end(function(err, response) {
+            if (err) {
+                return done(err);
+            }
+
+            expect(response.body).to.be.a('object');
+            expect(response.body).to.include.keys('data', 'topTracks', 'bio');
+            expect(response.body.bio).to.be.null;
+
+            done();
+        });
+    });
 });

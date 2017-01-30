@@ -14,17 +14,16 @@ h1 {
 .main {
     width: 900px;
     margin: 0 auto;
-    height: 550px;
+    height: 250px;
     background-color: transparent;
     overflow: hidden;
 }
 
 .artist-choices-container {
-    width: 1000px;
     margin: 0 auto;
     .artist-container {
-        width: 200px;
-        height: 200px;
+        width: 175px;
+        height: 175px;
         display: inline-block;
         &:nth-child(1) {
             transition: all 0.1s $hide-artist-animation;
