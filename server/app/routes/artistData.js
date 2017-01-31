@@ -22,7 +22,16 @@ function getTopTracks(spotifyID) {
             }
         }
 
-        return pickedTracks;
+        return pickedTracks.map(track => {
+            return {
+                id: track.id,
+                name: track.name,
+                previewUrl: track.preview_url,
+                popularity: track.popularity,
+                albumName: track.album.name,
+                image: track.album.images.pop()
+            };
+        });
     });
 }
 

@@ -31,6 +31,7 @@ describe('GET /artistData', function() {
             expect(response.body).to.be.a('object');
             expect(response.body).to.include.keys('data', 'topTracks', 'bio');
             expect(response.body.topTracks).to.have.lengthOf(3);
+            expect(response.body.topTracks[0]).to.include.keys('id', 'name', 'previewUrl', 'popularity', 'albumName', 'image');
 
             done();
         });
