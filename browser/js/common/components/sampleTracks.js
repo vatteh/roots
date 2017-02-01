@@ -7,21 +7,29 @@ app.component('sampleTracks', {
     },
     template: `
         <div class='row'>
-            <div ng-repeat='track in $ctrl.tracks' class='track-item col-sm-4' ng-click='$ctrl.playTrack(track)'>
-                <img class='track-item--image' ng-src='{{track.image.url}}'/>
-                <div class='track-item--details'>
-                    <span class='song-item--title' ng-bind='track.name'></span>
-                </div>
-                <div class='track-item--icon'>
-                    <i class='fa fa-play'></i>
-                </div>
+            <div ng-repeat='track in $ctrl.tracks track by $index' class='track-item col-sm-4' ng-click='$ctrl.playTrack(track, $index)'>
+                <img class='track-item--image' ng-src='{{track.image.url}}' style='display: inline-block;'/>
+                <span class='song-item--title' ng-bind='track.name'></span>
+                <i class='fa' ng-class="track.isPlaying ? 'fa-play' : 'fa-pause'"></i>
             </div>
-            <iframe width='0' height='0' class='visibility: none' ng-src='{{$ctrl.recording}}' frameborder='0'>
+            <iframe id='iframe' width='0' height='0' class='visibility: none' frameborder='0'>
         </div>`,
     controller: function($sce) {
-        this.playTrack = track => {
-            this.recording = $sce.trustAsResourceUrl(track.previewUrl);
-            track.selected = true;
+        let iframeElement = angular.element(document.querySelector('#iframe'));
+        this.playTrack = (selectedTrack, selectedIndex) => {
+            if (selectedTrack.isPlaying) {
+                iframeElement.attr('src', null);
+                selectedTrack.isPlaying = false;
+            } else {
+                iframeElement.attr('src', $sce.trustAsResourceUrl(selectedTrack.previewUrl));
+                this.tracks.forEach((track, index)=> {
+                    if (index === selectedIndex) {
+                        track.isPlaying = true;
+                    } else {
+                        track.isPlaying = false;
+                    }
+                });
+            }
         };
     }
 });

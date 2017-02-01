@@ -5,7 +5,6 @@ app.controller('DiscoverController', function($scope, $sce, $stateParams, $state
         $state.go('home');
     } else {
         this.artistDiscoveryInfo = artistDiscoveryInfo;
-        // this.recording = $sce.trustAsResourceUrl(this.artistDiscoveryInfo.topTracks[0].preview_url);
 
         this.getInfluencers = () => {
             return APIFactory.getArtistInfluencers($stateParams.artistThumbnailInfo.id).then(influencers => {
