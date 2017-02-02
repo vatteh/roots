@@ -1,5 +1,7 @@
 /* make our pages be full width and full height */
 /* positioned absolutely so that the pages can overlap each other as they enter and leave */
+$sample-track-height: 64px;
+
 .page { 
   text-align: center;
   position: absolute;
@@ -17,6 +19,42 @@
 .no-margin-top {
   margin-top: 0;
 }
+
+.sample-tracks--container {
+  margin: 15px 0;
+  height: $sample-track-height;
+
+  .track-item {
+    padding: 0;
+
+    .track-item--image {
+      display: inline-block;
+      float: left;
+    }
+
+    .track-item--title {
+      float: left;
+      text-align: left;
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center;
+      height: $sample-track-height;
+      width: 60%;
+      margin-left: 15px;
+      overflow: hidden;
+    }
+
+    .track-item--icon {
+      float: right;
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center;
+      height: $sample-track-height;
+      margin-right: 15px;
+    }
+  }
+}
+
 
 .divider {
   border-top: 3px solid;

@@ -6,14 +6,16 @@ app.component('sampleTracks', {
         tracks: '<'
     },
     template: `
-        <div class='row'>
-            <div ng-repeat='track in $ctrl.tracks track by $index' class='track-item col-sm-4' ng-click='$ctrl.playTrack(track, $index)'>
-                <img class='track-item--image' ng-src='{{track.image.url}}' style='display: inline-block;'/>
-                <span class='song-item--title' ng-bind='track.name'></span>
-                <i class='fa' ng-class="track.isPlaying ? 'fa-play' : 'fa-pause'"></i>
+        <div ng-repeat='track in $ctrl.tracks track by $index' class='col-sm-4 track-item' ng-click='$ctrl.playTrack(track, $index)'>
+            <img class='track-item--image' ng-src='{{track.image.url}}'/>
+            <div class='track-item--title'>
+                <span ng-bind='track.name'></span>
             </div>
-            <iframe id='iframe' width='0' height='0' class='visibility: none' frameborder='0'>
-        </div>`,
+            <div class='track-item--icon'>
+                <i class='fa fa-lg' ng-class="track.isPlaying ? 'fa-play' : 'fa-pause'"></i>
+            </div>
+        </div>
+        <iframe id='iframe' width='0' height='0' class='visibility: none' frameborder='0'>`,
     controller: function($sce) {
         let iframeElement = angular.element(document.querySelector('#iframe'));
         this.playTrack = (selectedTrack, selectedIndex) => {
