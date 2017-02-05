@@ -1,13 +1,13 @@
-<div class='container'>
-    <img src='/logo.png' style='display: block; margin-left: auto; margin-right: auto'>
-    <div class='row main'>
-        <div class='col-sm-12'>
+<div layout='column'>
+    <div flex layout='row' layout-align='center center'>
+        <img src='/logo.png'>
+    </div>
+    <div flex>
+        <div class='main'>
             <h3>Display stuff here!!!!</h3>
         </div>
     </div>
-    <div class='row'>
-        <div class='col-sm-12'>
-            <influnecers artists='ctrl.presentDayArtists'></influnecers>
-        </div>
+    <div flex>
+        <influnecers artists='ctrl.presentDayArtists'></influnecers>
     </div>
 </div>
