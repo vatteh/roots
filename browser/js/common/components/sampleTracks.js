@@ -6,13 +6,14 @@ app.component('sampleTracks', {
         tracks: '<'
     },
     template: `
-        <div layout="row">
-            <div ng-repeat='track in $ctrl.tracks track by $index' flex='33' class='track-item' ng-click='$ctrl.playTrack(track, $index)'>
-                <img class='track-item--image' ng-src='{{track.image.url}}'/>
-                <div class='track-item--title'>
-                    <span ng-bind='track.name'></span>
+        <div layout='row'>
+            <div ng-repeat='track in $ctrl.tracks track by $index' flex='33' layout='row' layout-align='space-between center' ng-click='$ctrl.playTrack(track, $index)'>
+                <img flex='initial' ng-src='{{track.image.url}}' class='materal-padding'/>
+                <div flex>
+                    <span class='md-body-2' ng-bind='track.name'></span></br>
+                    <span class='md-caption' ng-bind='track.albumName'></span>
                 </div>
-                <div class='track-item--icon'>
+                <div flex='initial' class='materal-padding'>
                     <i class='fa fa-lg' ng-class="track.isPlaying ? 'fa-play' : 'fa-pause'"></i>
                 </div>
             </div>
