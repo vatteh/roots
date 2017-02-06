@@ -10,8 +10,8 @@ app.component('sampleTracks', {
             <div ng-repeat='track in $ctrl.tracks track by $index' flex='33' layout='row' layout-align='space-between center' ng-click='$ctrl.playTrack(track, $index)'>
                 <img flex='initial' ng-src='{{track.image.url}}' class='materal-padding'/>
                 <div flex>
-                    <span class='md-body-2' ng-bind='track.name'></span></br>
-                    <span class='md-caption' ng-bind='track.albumName'></span>
+                    <div class='md-body-2 truncate' ng-bind='track.name'></div>
+                    <div class='md-caption truncate' ng-bind='track.albumName'></div>
                 </div>
                 <div flex='initial' class='materal-padding'>
                     <i class='fa fa-lg' ng-class="track.isPlaying ? 'fa-play' : 'fa-pause'"></i>

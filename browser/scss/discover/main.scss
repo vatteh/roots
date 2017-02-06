@@ -16,6 +16,12 @@ $artist-info-height: 350px;
   margin-top: 0;
 }
 
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .artist-image {
   height: $artist-info-height;
   margin: 0 -100%;
