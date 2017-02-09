@@ -8,7 +8,7 @@ app.component('sampleTracks', {
     template: `
         <div layout='row'>
             <md-list ng-cloak style='width: 100%;'>
-                <md-subheader class='md-no-sticky'>Sample Tracks</md-subheader>
+                <h4 class='sample-tracks__title md-title md-no-sticky'>Sample Tracks</h4>
                 <md-list-item ng-repeat='track in $ctrl.tracks track by $index' layout='row' layout-align='space-between center' ng-click='$ctrl.playTrack(track, $index)'>
                     <img flex='none' ng-src='{{track.image.url}}' class='sample-tracks__image materal-padding'/>
                     <div flex='auto' class='sample-tracks__text'>
