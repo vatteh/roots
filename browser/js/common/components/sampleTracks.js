@@ -20,16 +20,18 @@ app.component('sampleTracks', {
                     </div>
                 </md-list-item>
             </md-list>
-            <iframe id='iframe' width='0' height='0' class='visibility: none' frameborder='0'>
+            <audio id='audioTag'></audio>
         </div>`,
     controller: function($sce) {
-        let iframeElement = angular.element(document.querySelector('#iframe'));
+        let audioElement = document.getElementById('audioTag');
+        audioElement.volume = '0.3';
         this.playTrack = (selectedTrack, selectedIndex) => {
             if (selectedTrack.isPlaying) {
-                iframeElement.attr('src', null);
+                audioElement.pause();
                 selectedTrack.isPlaying = false;
             } else {
-                iframeElement.attr('src', $sce.trustAsResourceUrl(selectedTrack.previewUrl));
+                audioElement.src = $sce.trustAsResourceUrl(selectedTrack.previewUrl);
+                audioElement.play();
                 this.tracks.forEach((track, index)=> {
                     if (index === selectedIndex) {
                         track.isPlaying = true;
