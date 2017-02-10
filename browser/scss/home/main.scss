@@ -65,7 +65,7 @@ h1 {
             border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-            opacity: 0.7;
+            opacity: 0.9;
             transition: opacity 0.25s ease-in-out, box-shadow 0.20s ease-in-out, transform 0.1s ease-in-out, border 0.1s ease-in-out;
             &:hover {
                 opacity: 1.0;
