@@ -57,8 +57,14 @@ $artist-info-height: 350px;
   width: 100px;
 }
 
-.sample-tracks__title {
-  margin-top: 0;
-  margin-bottom: 20px;
-  margin-left: 22px;
+.sample-tracks__container {
+  margin: 0px 22px 20px 22px;
+
+  .sample-tracks__title {
+    margin: 0;
+  }
+
+  .sample-tracks__autoplay-switch {
+    margin: 0;
+  }
 }

@@ -8,7 +8,10 @@ app.component('sampleTracks', {
     template: `
         <div layout='row'>
             <md-list ng-cloak style='width: 100%;'>
-                <h4 class='sample-tracks__title md-title md-no-sticky'>Sample Tracks</h4>
+                <div layout='row' class='sample-tracks__container'>
+                    <h4 flex class='sample-tracks__title md-title md-no-sticky'>Sample Tracks</h4>
+                    <md-switch flex='nogrow' class='sample-tracks__autoplay-switch' ng-model='$ctrl.autoplay' aria-label='Auto play sample songs'>Autoplay</md-switch>
+                </div>
                 <md-list-item ng-repeat='track in $ctrl.tracks track by $index' layout='row' layout-align='space-between center' ng-click='$ctrl.playTrack(track, $index)'>
                     <img flex='none' ng-src='{{track.image.url}}' class='sample-tracks__image materal-padding'/>
                     <div flex='auto' class='sample-tracks__text'>
@@ -24,7 +27,7 @@ app.component('sampleTracks', {
         </div>`,
     controller: function($sce) {
         let audioElement = document.getElementById('audioTag');
-        audioElement.volume = '0.3';
+        audioElement.volume = '0.1';
         this.playTrack = (selectedTrack, selectedIndex) => {
             if (selectedTrack.isPlaying) {
                 audioElement.pause();
