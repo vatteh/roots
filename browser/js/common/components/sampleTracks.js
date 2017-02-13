@@ -20,27 +20,39 @@ app.component('sampleTracks', {
                     </div>
                     <div flex='none' class='sample-tracks__play-icon materal-padding'>
                         <i class='fa fa-lg' ng-class="track.isPlaying ? 'fa-play' : 'fa-pause'"></i>
-                        <md-progress-circular md-mode='determinate' value='100' md-diameter='64'></md-progress-circular>
+                        <md-progress-circular md-mode='determinate' value='{{track.timeElapsed}}' md-diameter='64' ng-show='track.isPlaying'></md-progress-circular>
                     </div>
                 </md-list-item>
             </md-list>
             <audio id='audioTag'></audio>
         </div>`,
-    controller: function($sce) {
+    controller: function($sce, $interval) {
         let audioElement = document.getElementById('audioTag');
+        let stopFunction;
         audioElement.volume = '0.1';
         this.playTrack = (selectedTrack, selectedIndex) => {
             if (selectedTrack.isPlaying) {
                 audioElement.pause();
                 selectedTrack.isPlaying = false;
+                selectedTrack.timeElapsed = 0;
+                $interval.cancel(stopFunction);
             } else {
                 audioElement.src = $sce.trustAsResourceUrl(selectedTrack.previewUrl);
                 audioElement.play();
                 this.tracks.forEach((track, index)=> {
                     if (index === selectedIndex) {
+                        track.timeElapsed = 0;
                         track.isPlaying = true;
+                        $interval.cancel(stopFunction);
+                        stopFunction = $interval(count => {
+                            track.timeElapsed = count / 3;
+                            if (count >= 300) {
+                                track.isPlaying = false;
+                            }
+                        }, 100, 300);
                     } else {
                         track.isPlaying = false;
+                        track.timeElapsed = 0;
                     }
                 });
             }
