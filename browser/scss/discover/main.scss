@@ -49,12 +49,18 @@ $artist-info-height: 350px;
 }
 
 .sample-tracks__play-icon {
-  width: 32px;
-  height: 32px;
+  width: 64px;
+  height: 64px;
+
+  i.fa {
+    position: absolute;
+    top: 34px;
+    right: 46px;
+  }
 }
 
 .sample-tracks__text {
-  width: 100px;
+  width: 50px;
 }
 
 .sample-tracks__container {
