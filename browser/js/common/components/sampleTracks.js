@@ -20,7 +20,7 @@ app.component('sampleTracks', {
                     </div>
                     <div flex='none' class='sample-tracks__play-icon materal-padding'>
                         <i class='fa fa-lg' ng-class="track.isPlaying ? 'fa-play' : 'fa-pause'"></i>
-                        <md-progress-circular md-mode='determinate' value='{{track.timeElapsed}}' md-diameter='64' ng-show='track.isPlaying'></md-progress-circular>
+                        <md-progress-circular md-mode='determinate' value='{{track.timeElapsed}}' md-diameter='64' class='fade' ng-show='track.isPlaying'></md-progress-circular>
                     </div>
                 </md-list-item>
             </md-list>
