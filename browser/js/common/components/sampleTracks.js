@@ -10,7 +10,7 @@ app.component('sampleTracks', {
             <md-list ng-cloak style='width: 100%;'>
                 <div layout='row' class='sample-tracks__container'>
                     <h4 flex class='sample-tracks__title md-title md-no-sticky'>Sample Tracks</h4>
-                    <md-switch flex='nogrow' class='sample-tracks__autoplay-switch' ng-model='$ctrl.autoplay' aria-label='Auto play sample songs'>Autoplay</md-switch>
+                    <md-switch flex='nogrow' class='sample-tracks__autoplay-switch' ng-model='$ctrl.StateService.autoPlayState' aria-label='Auto play sample songs'>Autoplay</md-switch>
                 </div>
                 <md-list-item ng-repeat='track in $ctrl.tracks track by $index' layout='row' layout-align='space-between center' ng-click='$ctrl.playTrack(track, $index)'>
                     <img flex='none' ng-src='{{track.image.url}}' class='sample-tracks__image materal-padding'/>
@@ -26,7 +26,8 @@ app.component('sampleTracks', {
             </md-list>
             <audio id='audioTag'></audio>
         </div>`,
-    controller: function($sce, $interval) {
+    controller: function($scope, $sce, $interval, StateService) {
+        this.StateService = StateService;
         let audioElement = document.getElementById('audioTag');
         let stopFunction;
         audioElement.volume = '0.1';
@@ -57,5 +58,11 @@ app.component('sampleTracks', {
                 });
             }
         };
+
+        $scope.$watch(() => this.tracks, () => {
+            if (this.StateService.autoPlayState && this.tracks) {
+                this.playTrack(this.tracks[0], 0);
+            }
+        }, false);
     }
 });
