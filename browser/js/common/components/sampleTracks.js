@@ -18,7 +18,7 @@ app.component('sampleTracks', {
                         <div class='md-body-2 truncate' ng-bind='track.name'></div>
                         <div class='md-caption truncate' ng-bind='track.albumName'></div>
                     </div>
-                    <div flex='none' class='sample-tracks__play-icon materal-padding'>
+                    <div flex='none' ng-click='$ctrl.playTrack(track, $index)' class='sample-tracks__play-icon materal-padding'>
                         <i class='fa fa-lg' ng-class="track.isPlaying ? 'fa-play' : 'fa-pause'"></i>
                         <md-progress-circular md-mode='determinate' value='{{track.timeElapsed}}' md-diameter='64' class='fade' ng-show='track.isPlaying'></md-progress-circular>
                     </div>
@@ -49,6 +49,7 @@ app.component('sampleTracks', {
                             track.timeElapsed = count / 3;
                             if (count >= 300) {
                                 track.isPlaying = false;
+                                track.timeElapsed = 0;
                             }
                         }, 100, 300);
                     } else {
