@@ -18,8 +18,9 @@ app.config(($stateProvider) => {
         controller: 'DiscoverController as ctrl',
         params: { 'artistThumbnailInfo': null },
         resolve: {
-            artistDiscoveryInfo: ($stateParams, APIFactory) => {
+            artistDiscoveryInfo: ($stateParams, APIFactory, StateService) => {
                 if ($stateParams.artistThumbnailInfo) {
+                    StateService.currentDiscoverStateID++;
                     return APIFactory.getArtistData($stateParams.artistThumbnailInfo);
                 } else {
                     return null;

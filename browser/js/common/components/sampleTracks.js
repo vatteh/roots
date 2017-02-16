@@ -29,6 +29,7 @@ app.component('sampleTracks', {
     controller: function($scope, $sce, $interval, StateService) {
         this.StateService = StateService;
         let audioElement = document.getElementById('audioTag');
+        let thisDiscoverStateID = this.StateService.currentDiscoverStateID;
         let stopFunction;
         audioElement.volume = '0.1';
         this.playTrack = (selectedTrack, selectedIndex) => {
@@ -52,7 +53,8 @@ app.component('sampleTracks', {
                                 track.timeElapsed = 0;
 
                                 let nextTrackIndex = index + 1;
-                                if (this.StateService.autoPlayState && this.tracks[nextTrackIndex]) {
+                                let currentDiscoverStateID = this.StateService.currentDiscoverStateID;
+                                if (this.StateService.autoPlayState && thisDiscoverStateID === currentDiscoverStateID && this.tracks[nextTrackIndex]) {
                                     this.playTrack(this.tracks[nextTrackIndex], nextTrackIndex);
                                 } 
                             }

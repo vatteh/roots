@@ -1,23 +1,26 @@
-<div layout='column'>
-    <div flex='initial' layout-margin>
-        <h1 ng-bind='ctrl.artistDiscoveryInfo.data.name' class='no-margin-top'></h1>
-    </div>
-    <div flex='initial' layout='row' layout-sm='column' layout-xs='column' layout-margin>
-        <md-content flex='70' flex-sm='100' flex-xs='100' class='md-padding md-whiteframe-2dp round-corners' layout='row'>
-            <div flex='30'>
-                <div style='overflow: hidden; text-align: center;'>
-                    <img class='artist-image' ng-src='{{ctrl.artistDiscoveryInfo.data.images[0].url}}' />
+<div layout='row' layout-align='center center'>
+    <div flex='85' layout='column'>
+        <div flex='initial' layout-margin>
+            <h1 ng-bind='ctrl.artistDiscoveryInfo.data.name' class='no-margin-top'></h1>
+        </div>
+        <div flex='initial' layout='row' layout-sm='column' layout-xs='column' layout-margin>
+            <md-content flex='70' flex-sm='100' flex-xs='100' class='md-padding md-whiteframe-2dp round-corners' layout='row'>
+                <div flex='30'>
+                    <div style='overflow: hidden; text-align: center;'>
+                        <img class='artist-image' ng-src='{{ctrl.artistDiscoveryInfo.data.images[0].url}}' />
+                    </div>
                 </div>
-            </div>
-            <div flex='70' class='artist-bio' layout-margin>
-                <p ng-bind='ctrl.artistDiscoveryInfo.bio.text'></p>
-            </div>
-        </md-content>
-        <md-content flex='30' flex-sm='100' flex-xs='100' class='md-padding md-whiteframe-2dp round-corners'>
-            <sample-tracks tracks='ctrl.artistDiscoveryInfo.topTracks'></sample-tracks>
-        </md-content>
-    </div>
-    <div flex='initial'>
-        <influnecers artists='ctrl.influencers'></influnecers>
+                <div flex='70' class='artist-bio' layout-margin>
+                    <p ng-bind='ctrl.artistDiscoveryInfo.bio.text'></p>
+                </div>
+            </md-content>
+            <md-content flex='30' flex-sm='100' flex-xs='100' class='md-padding md-whiteframe-2dp round-corners'>
+                <sample-tracks tracks='ctrl.artistDiscoveryInfo.topTracks'></sample-tracks>
+            </md-content>
+        </div>
+        <div flex='initial'>
+            <influnecers artists='ctrl.influencers'></influnecers>
+        </div>
     </div>
 </div>
+
