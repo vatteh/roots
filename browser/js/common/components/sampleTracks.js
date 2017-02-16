@@ -50,6 +50,11 @@ app.component('sampleTracks', {
                             if (count >= 300) {
                                 track.isPlaying = false;
                                 track.timeElapsed = 0;
+
+                                let nextTrackIndex = index + 1;
+                                if (this.StateService.autoPlayState && this.tracks[nextTrackIndex]) {
+                                    this.playTrack(this.tracks[nextTrackIndex], nextTrackIndex);
+                                } 
                             }
                         }, 100, 300);
                     } else {
