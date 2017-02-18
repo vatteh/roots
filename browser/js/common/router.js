@@ -6,7 +6,8 @@ app.config(($stateProvider) => {
         templateUrl: 'js/home/home.html',
         controller: 'HomeController as ctrl',
         resolve: {
-            presentDayArtists: APIFactory => {
+            presentDayArtists: (APIFactory, StateService) => {
+                StateService.currentDiscoverStateID++;
                 return APIFactory.getPresentDayArtists();
             }
         }
