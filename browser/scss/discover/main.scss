@@ -66,6 +66,10 @@ $artist-info-height: 350px;
   .fade.ng-hide {
     opacity: 0;
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .sample-tracks__text {

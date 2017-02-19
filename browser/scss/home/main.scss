@@ -79,6 +79,9 @@ h1 {
             &.highlight-selected-artist {
                 border: 6px solid white;
             }
+            &:focus {
+                outline: none;
+            }
         }
     }
 }
