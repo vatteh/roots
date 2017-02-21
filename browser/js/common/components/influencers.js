@@ -12,7 +12,7 @@ app.component('influnecers', {
                 <img class='artist-image' ng-class='{"highlight-selected-artist": artist.selected}' ng-click='$ctrl.selectArtist(artist, $index)' ng-src='{{artist.spotifyThumbnail.url}}' />
             </div>
         </div>`,
-    controller: function($scope, $state, $animate) {
+    controller: function($scope, $state, $animate, $stateParams, StateService) {
         this.selectArtist = (selectedArtist, index) => {
             this.artistChosen = true;
             selectedArtist.selected = true;
@@ -20,6 +20,9 @@ app.component('influnecers', {
             let artistContainers = document.getElementsByClassName('artist-container');
 
             $animate.addClass(artistContainers[index], 'hide-selected-artist').then(() => {
+                if ($stateParams.artistThumbnailInfo) {
+                    StateService.previousArtists.push(angular.copy($stateParams.artistThumbnailInfo));
+                }
                 $state.go('discover', { artistThumbnailInfo: selectedArtist });
             });
         };

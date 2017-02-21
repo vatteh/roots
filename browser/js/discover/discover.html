@@ -1,9 +1,7 @@
 <md-toolbar layout='row' layout-align='center center'>
     <div class='md-toolbar-tools max-width' layout='row' layout-align='space-between center'>
         <h1 flex='none' class='md-flex' ng-bind='ctrl.artistDiscoveryInfo.data.name'></h1>
-        <!-- <md-button flex='none' class='md-fab md-mini' aria-label='Favorite'>
-            <img ng-src='{{ctrl.artistDiscoveryInfo.data.images[0].url}}' style='width: 40px; margin: 0 -100%;'/>
-        </md-button> -->
+        <influencer-timeline flex='grow'></influencer-timeline>
         <md-button flex='none' class='md-raised' aria-label='Home' ui-sref='home'>Home</md-button>
     </div>
 </md-toolbar>

@@ -7,6 +7,7 @@ app.config(($stateProvider) => {
         controller: 'HomeController as ctrl',
         resolve: {
             presentDayArtists: (APIFactory, StateService) => {
+                StateService.previousArtists = [];
                 StateService.currentDiscoverStateID++;
                 return APIFactory.getPresentDayArtists();
             }

@@ -1,6 +1,6 @@
 /* jshint esversion:6 */
 
-app.controller('DiscoverController', function($scope, $sce, $stateParams, $state, APIFactory, artistDiscoveryInfo) {
+app.controller('DiscoverController', function($stateParams, $state, APIFactory, artistDiscoveryInfo) {
     if (!artistDiscoveryInfo) {
         $state.go('home');
     } else {

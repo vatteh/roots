@@ -31,8 +31,16 @@ h1 {
     max-width: 1220px;
 }
 
+.artist-timeline-image {
+    cursor: pointer;
+    height: 55px;
+    margin: 0 -100%;
+    object-fit: cover;
+}
+
 .artist-choices-container {
     margin: 0 auto;
+    height: 200px;
     .artist-container {
         width: 175px;
         height: 175px;
