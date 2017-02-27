@@ -90,6 +90,7 @@ $artist-info-height: 300px;
 
 .artist-timeline-button__hide {
   transform: scale(0, 0);
+  opacity: 0;
 }
 
 .artist-timeline-button__selected {

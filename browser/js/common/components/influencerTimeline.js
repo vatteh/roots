@@ -5,7 +5,8 @@ app.component('influencerTimeline', {
     template: `
         <div layout='row' layout-align='start center'>
             <div ng-repeat='artist in $ctrl.previousArtists track by $index' class='artist-timeline-button'>
-                <md-button flex='none' ng-click='$ctrl.selectArtist(artist, $index)' class='md-fab md-mini' ng-class='{"artist-timeline-button__selected": artist.selected_on_timeline}' aria-label='Previous Artist'>
+                <i ng-if='$index > 0' class='fa fa-arrow-right' aria-hidden='true'></i>
+                <md-button flex='none' ng-click='$ctrl.selectArtist(artist, $index)' class='md-fab md-mini' ng-class='{"artist-timeline-button__selected": artist.selected_on_timeline}' style='margin-left: 0' aria-label='Previous Artist'>
                     <img ng-src='{{artist.spotifyThumbnail.url}}' class='artist-timeline-image'/>
                     <md-tooltip md-direction='bottom' ng-bind='artist.name'></md-tooltip>
                 </md-button>
@@ -22,9 +23,9 @@ app.component('influencerTimeline', {
 
             for (let i = artistsToRemove.length - 1; i >= 0; i--) {
                 if (i === 0) {
-                    angular.element(artistsToRemove[i]).css('transition', 'all 0.4s ease-out');
+                    angular.element(artistsToRemove[i]).css('transition', 'all 0.2s ease-out');
                 } else {
-                    angular.element(artistsToRemove[i]).css('transition', 'all 0.15s ease-out');
+                    angular.element(artistsToRemove[i]).css('transition', 'all 0.1s ease-out');
                     angular.element(artistsToRemove[i]).addClass('artist-timeline-button__hide');
                 }
             }
