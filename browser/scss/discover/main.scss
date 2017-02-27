@@ -87,3 +87,11 @@ $artist-info-height: 300px;
     margin: 0;
   }
 }
+
+.artist-timeline-button__hide {
+  transform: scale(0, 0);
+}
+
+.artist-timeline-button__selected {
+    border: 3px solid white;
+}
