@@ -15,7 +15,8 @@
                     </div>
                 </div>
                 <div flex='auto' class='artist-bio' layout-margin>
-                    <p ng-bind='ctrl.artistDiscoveryInfo.bio.text'></p>
+                    <p ng-if='ctrl.artistDiscoveryInfo.bio' ng-bind='ctrl.artistDiscoveryInfo.bio.text'></p>
+                    <p ng-if='!ctrl.artistDiscoveryInfo.bio' ng-bind='ctrl.noBioMessage'></p>
                 </div>
             </md-content>
             <md-content flex='30' flex-sm='100' flex-xs='100' class='md-padding md-whiteframe-2dp round-corners'>

@@ -11,6 +11,7 @@ app.component('influnecers', {
                 <md-tooltip md-direction='top' ng-bind='artist.name'></md-tooltip>
                 <img class='artist-image' ng-class='{"highlight-selected-artist": artist.selected}' ng-click='$ctrl.selectArtist(artist, $index)' ng-src='{{artist.spotifyThumbnail.url}}' />
             </div>
+            <p ng-if='$ctrl.artists.length === 0'>No influencers found for this artist.</p>
         </div>`,
     controller: function($scope, $state, $animate, $stateParams, StateService) {
         this.selectArtist = (selectedArtist, index) => {

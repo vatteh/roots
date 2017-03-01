@@ -4,13 +4,14 @@ app.controller('DiscoverController', function($stateParams, $state, APIFactory, 
     if (!artistDiscoveryInfo) {
         $state.go('home');
     } else {
+        this.noBioMessage = 'No bio was found for this artist.';
         this.artistDiscoveryInfo = artistDiscoveryInfo;
 
         this.getInfluencers = () => {
             return APIFactory.getArtistInfluencers($stateParams.artistThumbnailInfo.id).then(influencers => {
                 this.influencers = influencers;
             }).catch(error => {
-                console.log('No influencers found for - ', $stateParams.artistThumbnailInfo.name, error);
+                console.log('Error when getting influencers for - ', $stateParams.artistThumbnailInfo.name, error);
                 $state.go('home');
             });
         };
