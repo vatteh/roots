@@ -45,6 +45,12 @@ h1 {
         width: 175px;
         height: 175px;
         display: inline-block;
+        &.ng-enter {
+            transform: scale(0, 0);
+        }
+        &.ng-enter-active {
+            transform: scale(1, 1);
+        }
         &:nth-child(1) {
             transition: all 0.1s $hide-artist-animation;
         }
