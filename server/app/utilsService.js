@@ -52,7 +52,7 @@ export default {
         let url = "https://api.spotify.com/v1/search?q=" + artistName + "&type=artist";
         return request({ url: url, cacheKey: artistName + '_getArtistSpotifyData' }).then(response => {
             if (multiple) {
-                return JSON.parse(response.body).artists.items.splice(0, 10);
+                return JSON.parse(response.body).artists.items.splice(0, 5);
             } else {
                 return JSON.parse(response.body).artists.items[0];
             }
