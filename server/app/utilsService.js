@@ -48,10 +48,14 @@ export default {
             return null;
         });
     },
-    getArtistSpotifyData: artistName => {
+    getArtistSpotifyData: (artistName, multiple=false) => {
         let url = "https://api.spotify.com/v1/search?q=" + artistName + "&type=artist";
         return request({ url: url, cacheKey: artistName + '_getArtistSpotifyData' }).then(response => {
-            return JSON.parse(response.body).artists.items[0];
+            if (multiple) {
+                return JSON.parse(response.body).artists.items.splice(0, 10);
+            } else {
+                return JSON.parse(response.body).artists.items[0];
+            }
         }).catch(() => {
             console.log('No spotify data found for ' + artistName);
             return null;

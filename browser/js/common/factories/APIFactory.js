@@ -28,6 +28,17 @@ app.factory('APIFactory', ($http) => {
             }).catch(err => {
                 return err;
             });
+        },
+        searchForArtist: searchText => {
+            let params = {
+                searchText: searchText
+            };
+
+            return $http.get('/api/searchForArtists/', { params: params }).then(response => {
+                return response.data;
+            }).catch(err => {
+                return err;
+            });  
         }
     };
 });

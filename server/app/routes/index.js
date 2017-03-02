@@ -6,12 +6,14 @@ import express from 'express';
 import artistInfluencers from './artistInfluencers';
 import artistData from './artistData';
 import topPresentDayArtists from './topPresentDayArtists';
+import searchForArtists from './searchForArtists';
 
 let router = express.Router();
 
 router.use('/artistInfluencers', artistInfluencers);
 router.use('/artistData', artistData);
 router.use('/topPresentDayArtists', topPresentDayArtists);
+router.use('/searchForArtists', searchForArtists);
 
 // Make sure this is after all of
 // the registered routes!

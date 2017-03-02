@@ -3,8 +3,23 @@
         <img src='/logo.png'>
     </div>
     <div flex>
-        <div class='main'>
-            <h3>Display stuff here!!!!</h3>
+        <div class='main' style='text-align: center;'>
+            <h6 class='md-subhead'>Discover the influencers of present day artists</h6>
+            <md-autocomplete
+                md-selected-item="ctrl.selectedItem"
+                md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                md-search-text="ctrl.searchText"
+                md-items="item in ctrl.querySearch(ctrl.searchText)"
+                md-item-text="item.name"
+                md-min-length="0"
+                placeholder="Search for a musician...">
+                <md-item-template>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.name}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No musicians matching "{{ctrl.searchText}}" were found.
+                </md-not-found>
+            </md-autocomplete>
         </div>
     </div>
     <div flex>
