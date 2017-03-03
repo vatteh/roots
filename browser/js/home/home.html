@@ -14,10 +14,17 @@
                 md-min-length="0"
                 placeholder="Search for a musician...">
                 <md-item-template>
-                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.name}}</span>
+                    <span class="item-title">
+                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.name}}:</span>
+                    </span>
+                    <span class="item-metadata">
+                        <span><strong ng-bind="item.followers | number"></strong> Spotify followers</span>
+                    </span>
                 </md-item-template>
                 <md-not-found>
-                    No musicians matching "{{ctrl.searchText}}" were found.
+                    <span ng-show='ctrl.searchText'>
+                        No musicians matching "{{ctrl.searchText}}" were found.
+                    </span>
                 </md-not-found>
             </md-autocomplete>
         </div>

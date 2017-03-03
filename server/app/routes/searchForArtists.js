@@ -13,7 +13,13 @@ router.get('/', (req, res) => {
         if (!data) {
             res.json([]);
         } else {
-            res.json(data);
+            res.json(data.map(element => {
+                return {
+                    name: element.name,
+                    id: element.id,
+                    followers: element.followers.total
+                };
+            }));
         }
     }).catch(error => {
         console.log('Could not get artist data');
