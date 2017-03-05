@@ -38,7 +38,14 @@ app.factory('APIFactory', ($http) => {
                 return response.data;
             }).catch(err => {
                 return err;
-            });  
+            });
+        },
+        getArtistRoviId: artistInfo => {
+            return $http.get('/api/getArtistRoviId/', { params: artistInfo }).then(response => {
+                return response.data;
+            }).catch(err => {
+                return err;
+            });
         }
     };
 });

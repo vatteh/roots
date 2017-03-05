@@ -16,4 +16,27 @@ app.controller('HomeController', function($state, APIFactory, presentDayArtists)
             return results;
         });
     };
+
+    this.selectedItemChange = artist => {
+        if (!artist) {
+            return;
+        }
+
+        APIFactory.getArtistRoviId(artist).then(data => {
+            console.log('data', data);
+            if (data) {
+                this.displayNoIdError = false;
+                let selectedArtist = {
+                    name: artist.name,
+                    id: data.roviId,
+                    spotifyId: artist.spotifyId,
+                    spotifyThumbnail: artist.spotifyThumbnail,
+                };
+
+                $state.go('discover', { artistThumbnailInfo: selectedArtist });  
+            } else {
+                this.displayNoIdError = true;
+            }
+        });
+    };
 });

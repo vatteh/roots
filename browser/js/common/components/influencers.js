@@ -24,6 +24,7 @@ app.component('influnecers', {
                 if ($stateParams.artistThumbnailInfo) {
                     StateService.previousArtists.push(angular.copy($stateParams.artistThumbnailInfo));
                 }
+                
                 $state.go('discover', { artistThumbnailInfo: selectedArtist });
             });
         };

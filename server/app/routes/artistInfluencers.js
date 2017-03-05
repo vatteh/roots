@@ -19,7 +19,7 @@ router.get('/:artistRoviID', (req, res) => {
 
         let promises = [];
         selectedInfluencers.forEach(artist => {
-            promises.push(utilsService.getArtistSpotifyData(artist.name));
+            promises.push(utilsService.searchArtistSpotifyData(artist.name));
         });
 
         return Q.allSettled(promises);

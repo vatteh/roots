@@ -9,15 +9,16 @@ let router = express.Router();
 
 // Given searchText, return searched artists found on spotify
 router.get('/', (req, res) => {
-    utilsService.getArtistSpotifyData(req.query.searchText, true).then(data => {
+    utilsService.searchArtistSpotifyData(req.query.searchText, true).then(data => {
         if (!data) {
             res.json([]);
         } else {
             res.json(data.map(element => {
                 return {
                     name: element.name,
-                    id: element.id,
-                    followers: element.followers.total
+                    spotifyId: element.id,
+                    followers: element.followers.total,
+                    spotifyThumbnail: element.images.pop(),
                 };
             }));
         }

@@ -38,7 +38,7 @@ function getTopTracks(spotifyID) {
 // Given a roviID, name, & spotifyID, return artist info, tracks, & bio
 router.get('/', (req, res) => {
     Q.all([
-        utilsService.getArtistSpotifyData(req.query.name), 
+        utilsService.searchArtistSpotifyData(req.query.name), 
         getTopTracks(req.query.spotifyID), 
         utilsService.getArtistBio(req.query.roviID)
     ]).then(data => {

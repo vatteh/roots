@@ -48,9 +48,9 @@ export default {
             return null;
         });
     },
-    getArtistSpotifyData: (artistName, multiple=false) => {
+    searchArtistSpotifyData: (artistName, multiple=false) => {
         let url = "https://api.spotify.com/v1/search?q=" + artistName + "&type=artist";
-        return request({ url: url, cacheKey: artistName + '_getArtistSpotifyData' }).then(response => {
+        return request({ url: url, cacheKey: artistName + '_searchArtistSpotifyData' }).then(response => {
             if (multiple) {
                 return JSON.parse(response.body).artists.items.splice(0, 5);
             } else {
@@ -58,6 +58,16 @@ export default {
             }
         }).catch(() => {
             console.log('No spotify data found for ' + artistName);
+            return null;
+        });
+    },
+    searchArtistRoviData: artistName => {
+        let url = 'http://api.rovicorp.com/data/v1.1/name/info?name=' + artistName + '&country=USformat=json&language=en&apikey=' + roviKeys.roviApiKey + '&sig=' + getRoviSig();
+
+        return request({ url: url, cacheKey: artistName + '_searchArtistRoviData' }).then(response => {
+            return JSON.parse(response.body).name;
+        }).catch(() => {
+            console.log('Could not find artist Rovi ID for ' + artistName);
             return null;
         });
     },

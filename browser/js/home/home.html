@@ -7,7 +7,7 @@
             <h6 class='md-subhead'>Discover the influencers of present day artists</h6>
             <md-autocomplete
                 md-selected-item="ctrl.selectedItem"
-                md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                md-selected-item-change="ctrl.selectedItemChange(item)"
                 md-search-text="ctrl.searchText"
                 md-items="item in ctrl.querySearch(ctrl.searchText)"
                 md-item-text="item.name"
@@ -27,6 +27,7 @@
                     </span>
                 </md-not-found>
             </md-autocomplete>
+            <p class='md-subhead' ng-show='ctrl.displayNoIdError'>No Rovi ID found for this artist</p>
         </div>
     </div>
     <div flex>
