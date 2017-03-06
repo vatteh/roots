@@ -7,7 +7,7 @@
 </md-toolbar>
 <md-content layout='row' layout-align='center center'>
     <div layout='column' class='max-width'>
-        <div flex='initial' layout='row' layout-sm='column' layout-xs='column' layout-margin>
+        <div flex='nogrow' layout='row' layout-sm='column' layout-xs='column' layout-margin>
             <md-content flex='70' flex-sm='100' flex-xs='100' class='md-padding md-whiteframe-2dp round-corners' layout='row'>
                 <div flex='none'>
                     <div style='overflow: hidden; text-align: center; width: 250px;'>
@@ -16,7 +16,12 @@
                 </div>
                 <div flex='auto' class='artist-bio' layout-margin>
                     <p ng-if='ctrl.artistDiscoveryInfo.bio' ng-bind='ctrl.artistDiscoveryInfo.bio.text'></p>
-                    <p ng-if='!ctrl.artistDiscoveryInfo.bio' ng-bind='ctrl.noBioMessage'></p>
+                    <div class='artist-bio__no-bio' ng-if='!ctrl.artistDiscoveryInfo.bio'>
+                        <div class='artist-bio__no-bio__image'>
+                            <i class='fa fa-4x fa-file-text-o'></i>
+                        </div>
+                        <p ng-bind='ctrl.noBioMessage' class='artist-bio__no-bio__text'></p>
+                    </div>
                 </div>
             </md-content>
             <md-content flex='30' flex-sm='100' flex-xs='100' class='md-padding md-whiteframe-2dp round-corners'>

@@ -30,11 +30,25 @@ $artist-info-height: 300px;
 
 .artist-bio {
   height: $artist-info-height;
+  max-width: 555px;
   text-align: left;
   overflow: scroll;
 
-  .divider {
-    border-top: 3px solid;
+  .artist-bio__no-bio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90%;
+
+    .artist-bio__no-bio__text {
+      text-align: center;
+      padding: 0 150px;
+    }
+
+    .artist-bio__no-bio__image {
+      width: 10%;
+      margin: 0 auto;
+    }
   }
 }
 
