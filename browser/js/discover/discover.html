@@ -2,7 +2,9 @@
     <div class='md-toolbar-tools max-width' layout='row' layout-align='space-between center'>
         <h1 flex='20' class='md-flex' ng-bind='ctrl.artistDiscoveryInfo.data.name' style='text-align: left;'></h1>
         <influencer-timeline flex='70' style='overflow-x: scroll; white-space: nowrap;'></influencer-timeline>
-        <md-button flex='10' class='md-raised' aria-label='Home' ui-sref='home'>Home</md-button>
+        <div flex='10'>
+            <md-button class='md-raised' ui-sref='home'>Home</md-button>
+        </div>
     </div>
 </md-toolbar>
 <md-content layout='row' layout-align='center center'>

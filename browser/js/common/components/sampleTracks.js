@@ -10,7 +10,7 @@ app.component('sampleTracks', {
             <md-list ng-cloak style='width: 100%;'>
                 <div layout='row' class='sample-tracks__container'>
                     <h4 flex class='sample-tracks__title md-title md-no-sticky'>Sample Tracks</h4>
-                    <md-switch flex='nogrow' class='sample-tracks__autoplay-switch' ng-model='$ctrl.StateService.autoPlayState' aria-label='Auto play sample songs'>Autoplay</md-switch>
+                    <md-switch flex='nogrow' class='sample-tracks__autoplay-switch' ng-model='$ctrl.StateService.autoPlayState'>Autoplay</md-switch>
                 </div>
                 <md-list-item ng-repeat='track in $ctrl.tracks track by $index' layout='row' layout-align='space-between center' ng-click='$ctrl.playTrack(track, $index)'>
                     <img flex='none' ng-src='{{track.image.url}}' class='sample-tracks__image materal-padding'/>
