@@ -22,9 +22,11 @@ app.controller('HomeController', function($state, APIFactory, presentDayArtists)
             return;
         }
 
+        this.gettingArtistRoviId = true;
+        this.displayNoIdError = false;
         APIFactory.getArtistRoviId(artist).then(data => {
+            this.gettingArtistRoviId = false;
             if (data && data.roviId) {
-                this.displayNoIdError = false;
                 let selectedArtist = {
                     name: artist.name,
                     id: data.roviId,

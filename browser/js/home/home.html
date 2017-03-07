@@ -27,6 +27,12 @@
                     </span>
                 </md-not-found>
             </md-autocomplete>
+            <div ng-show='ctrl.gettingArtistRoviId'>
+                <p class='md-title'>Fetching data for "{{ctrl.selectedItem.name}}"</p>
+                <div layout='row' layout-sm='column' layout-align='space-around'>
+                    <md-progress-circular md-mode='indeterminate' md-diameter='40'></md-progress-circular>
+                </div>
+            </div>
             <p class='md-subhead' ng-show='ctrl.displayNoIdError'>No Rovi ID found for this artist</p>
         </div>
     </div>
