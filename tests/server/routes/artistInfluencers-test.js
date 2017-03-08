@@ -42,7 +42,6 @@ describe('GET /artistInfluencers', function() {
             expect(influencers).to.be.a('array');
             expect(influencers).to.have.length.below(6);
             expect(influencers[0]).to.include.keys('id', 'name', 'weight', 'thumbnail', 'spotifyThumbnail', 'spotifyId');
-
             done();
         });
     });
