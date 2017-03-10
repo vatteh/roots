@@ -1,10 +1,10 @@
 <div layout='column'>
-    <div flex layout='row' layout-align='center center'>
-        <img src='/logo.png'>
-    </div>
+    <md-toolbar flex layout='column' layout-align='center center'>
+        <h1 class='toolbar-title'>Roots</h1>
+        <p class='md-caption'>Discover the influencers of present day musicians</p>
+    </md-toolbar>
     <div flex>
         <div class='main' style='text-align: center;'>
-            <h6 class='md-subhead'>Discover the influencers of present day artists</h6>
             <md-autocomplete
                 md-selected-item="ctrl.selectedItem"
                 md-selected-item-change="ctrl.selectedItemChange(item)"
@@ -12,31 +12,31 @@
                 md-items="item in ctrl.querySearch(ctrl.searchText)"
                 md-item-text="item.name"
                 md-min-length="0"
-                placeholder="Search for a musician...">
+                placeholder="Search for a musician..."
+                style='margin-top: 100px;'>
                 <md-item-template>
                     <span class="item-title">
-                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.name}}:</span>
+                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i" ng-bind='item.name + ":"'></span>
                     </span>
                     <span class="item-metadata">
                         <span><strong ng-bind="item.followers | number"></strong> Spotify followers</span>
                     </span>
                 </md-item-template>
                 <md-not-found>
-                    <span ng-show='ctrl.searchText'>
-                        No musicians matching "{{ctrl.searchText}}" were found.
-                    </span>
+                    <span ng-show='ctrl.searchText' ng-bind='"No musicians matching " + ctrl.searchText + " were found."'></span>
                 </md-not-found>
             </md-autocomplete>
             <div ng-show='ctrl.gettingArtistRoviId'>
-                <p class='md-title'>Fetching data for "{{ctrl.selectedItem.name}}"</p>
+                <p class='md-title' ng-bind='"Fetching data for " + ctrl.selectedItem.name'></p>
                 <div layout='row' layout-sm='column' layout-align='space-around'>
                     <md-progress-circular md-mode='indeterminate' md-diameter='40'></md-progress-circular>
                 </div>
             </div>
-            <p class='md-subhead' ng-show='ctrl.displayNoIdError'>No Rovi ID found for this artist</p>
+            <p class='md-subhead' ng-show='ctrl.displayNoIdError'>No Rovi ID found for this musician</p>
         </div>
     </div>
     <div flex>
+        <h6 class='md-subhead' style='text-align: center; margin-bottom: 0'>Or select a musician below</h6>
         <influnecers artists='ctrl.presentDayArtists'></influnecers>
     </div>
 </div>
