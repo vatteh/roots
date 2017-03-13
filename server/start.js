@@ -11,6 +11,6 @@
  start your application from main.js.
 
 */
-
+require('dotenv').config();
 require('babel/register');
 require('./main');
