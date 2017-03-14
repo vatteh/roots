@@ -7,36 +7,52 @@ import Q from 'q';
 
 import utilsService from '../utilsService';
 
-let router = express.Router();
-router.get('/:artistRoviID', (req, res) => {
-    let influencers;
+function fetchArtistData(influencers, maxLength) {
     let selectedInfluencers = [];
-    utilsService.getArtistInfluencers(req.params.artistRoviID).then(data => {
-        influencers = data;
-        while (selectedInfluencers.length < 5 && influencers.length) {
-            selectedInfluencers.push(utilsService.removeRandomElement(influencers));
+    while (selectedInfluencers.length < maxLength && influencers.length) {
+        selectedInfluencers.push(utilsService.removeRandomElement(influencers));
+    }
+
+    let promises = [];
+    selectedInfluencers.forEach(artist => {
+        promises.push(utilsService.searchArtistSpotifyData(artist.name));
+    });
+
+    return { promises: promises, selectedInfluencers: selectedInfluencers };
+}
+
+function filterSelectedInfluencers(selectedInfluencers, spotifyData) {
+    return selectedInfluencers.map((artist, index) => {
+        if (spotifyData[index].state === 'fulfilled' && spotifyData[index].value && spotifyData[index].value.images.length) {
+            artist.spotifyThumbnail = utilsService.getThumbnailImage(spotifyData[index].value.images);
+            artist.spotifyId = spotifyData[index].value.id;
+            return artist;
         }
 
-        let promises = [];
-        selectedInfluencers.forEach(artist => {
-            promises.push(utilsService.searchArtistSpotifyData(artist.name));
-        });
+        return null;
+    }).filter(artist => {
+        return artist;
+    });
+}
 
-        return Q.allSettled(promises);
-    }).then(data => {
-        let filteredSelectedInfluencers = selectedInfluencers.map((artist, index) => {
-            if (data[index].state === 'fulfilled' && data[index].value && data[index].value.images.length) {
-                artist.spotifyThumbnail = utilsService.getThumbnailImage(data[index].value.images);
-                artist.spotifyId = data[index].value.id;
-                return artist;
-            }
+let router = express.Router();
+router.get('/:artistRoviID', (req, res) => {
+    utilsService.getArtistInfluencers(req.params.artistRoviID).then(influencers => {
+        let finalSelectedInfluencers = [];
+        let artistData = fetchArtistData(influencers, 5);
+        function getArtistSpotifyData(promises) {
+            Q.allSettled(promises).then(spotifyData => {
+                finalSelectedInfluencers = finalSelectedInfluencers.concat(filterSelectedInfluencers(artistData.selectedInfluencers, spotifyData));
+                if (finalSelectedInfluencers.length < 5 && influencers.length) {
+                    artistData = fetchArtistData(influencers, 5 - finalSelectedInfluencers.length);
+                    getArtistSpotifyData(artistData.promises);
+                } else {
+                    res.json(finalSelectedInfluencers);
+                }
+            });
+        }
 
-            return null;
-        }).filter(artist => {
-            return artist;
-        });
-
-        res.json(filteredSelectedInfluencers);
+        getArtistSpotifyData(artistData.promises);
     }).catch(error => {
         console.log('Error getting artist influencers', error);
         res.json(error);
