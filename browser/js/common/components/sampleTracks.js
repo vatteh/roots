@@ -12,7 +12,7 @@ app.component('sampleTracks', {
                     <h4 flex class='sample-tracks__title md-title md-no-sticky'>Sample Tracks</h4>
                     <md-switch flex='nogrow' class='sample-tracks__autoplay-switch' ng-model='$ctrl.StateService.autoPlayState'>Autoplay</md-switch>
                 </div>
-                <md-list-item ng-repeat='track in $ctrl.tracks track by $index' layout='row' layout-align='space-between center' ng-click='$ctrl.playTrack(track, $index)'>
+                <md-list-item ng-repeat='track in $ctrl.tracks track by $index' layout='row' layout-align='space-between center' ng-click='$ctrl.playTrack(track, $index)' aria-label='Sample Track'>
                     <img flex='none' ng-src='{{track.image.url}}' class='sample-tracks__image materal-padding'/>
                     <div flex='auto' class='sample-tracks__text'>
                         <div class='md-body-2 truncate' ng-bind='track.name'></div>
