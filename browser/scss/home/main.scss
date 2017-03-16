@@ -51,6 +51,10 @@ fullstack-logo {
     .artist-container {
         width: 175px;
         height: 175px;
+        // max-width: 175px;
+        // max-height: 175px;
+        // width: auto;
+        // height: auto;
         display: inline-block;
         &.ng-enter {
             transform: scale(0, 0);

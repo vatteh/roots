@@ -15,6 +15,11 @@
         <script src="/angular-aria/angular-aria.min.js"></script>
         <script src="/angular-material/angular-material.min.js"></script>
         <script src="/main.js"></script>
+        <script>
+            function myOnCanPlayFunction() { console.log('Can play'); }
+            function myOnCanPlayThroughFunction() { console.log('Can play through'); }
+            function myOnLoadedData() { console.log('Loaded data'); }
+        </script>
     </head>
     <body ng-app="Roots">
         <div ui-view></div>

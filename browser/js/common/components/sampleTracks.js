@@ -24,7 +24,7 @@ app.component('sampleTracks', {
                     </div>
                 </md-list-item>
             </md-list>
-            <audio id='audioTag'></audio>
+            <audio oncanplay='myOnCanPlayFunction()' oncanplaythrough='myOnCanPlayThroughFunction()' onloadeddata='myOnLoadedData()' id='audioTag'></audio>
         </div>`,
     controller: function($scope, $sce, $interval, StateService) {
         this.StateService = StateService;
@@ -72,5 +72,9 @@ app.component('sampleTracks', {
                 this.playTrack(this.tracks[0], 0);
             }
         }, false);
+
+        $scope.myOnCanPlayFunction = () => { console.log('Can play'); };
+        $scope.myOnCanPlayThroughFunction = () => { console.log('Can play through'); };
+        $scope.myOnLoadedData = () => { console.log('Loaded data'); };
     }
 });
