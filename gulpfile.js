@@ -48,6 +48,7 @@ gulp.task('buildJS', ['lintJS'], function () {
 });
 
 gulp.task('testServerJS', function () {
+    require('dotenv').config();
     require('babel/register');
 	return gulp.src('./tests/server/**/*.js', {
 		read: false
