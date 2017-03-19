@@ -1,9 +1,4 @@
 $hide-artist-animation: cubic-bezier(0.560, -0.270, 1.000, 0.830);
-fullstack-logo {
-    padding-top: 30px;
-    width: 150px;
-    margin: 0 auto;
-}
 
 .toolbar-title {
     font-size: 45px;
@@ -14,7 +9,7 @@ fullstack-logo {
 }
 
 .main {
-    width: 900px;
+    max-width: 900px;
     margin: 0 auto;
     height: 250px;
     background-color: transparent;
@@ -46,15 +41,11 @@ fullstack-logo {
 }
 
 .artist-choices-container {
+    max-width: 900px;
     margin: 0 auto;
-    height: 200px;
     .artist-container {
-        width: 175px;
-        height: 175px;
-        // max-width: 175px;
-        // max-height: 175px;
-        // width: auto;
-        // height: auto;
+        width: 13vw;
+        height: 13vw;
         display: inline-block;
         &.ng-enter {
             transform: scale(0, 0);

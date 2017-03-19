@@ -5,27 +5,30 @@
     </md-toolbar>
     <div flex>
         <div class='main' style='text-align: center;'>
-            <md-autocomplete
-                md-selected-item="ctrl.selectedItem"
-                md-selected-item-change="ctrl.selectedItemChange(item)"
-                md-search-text="ctrl.searchText"
-                md-items="item in ctrl.querySearch(ctrl.searchText)"
-                md-item-text="item.name"
-                md-min-length="0"
-                placeholder="Search for a musician..."
-                style='margin-top: 100px;'>
-                <md-item-template>
-                    <span class="item-title">
-                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i" ng-bind='item.name + ":"'></span>
-                    </span>
-                    <span class="item-metadata">
-                        <span><strong ng-bind="item.followers | number"></strong> Spotify followers</span>
-                    </span>
-                </md-item-template>
-                <md-not-found>
-                    <span ng-show='ctrl.searchText' ng-bind='"No musicians matching " + ctrl.searchText + " were found."'></span>
-                </md-not-found>
-            </md-autocomplete>
+            <md-content class='md-padding'>
+                <md-autocomplete
+                    md-selected-item='ctrl.selectedItem'
+                    md-selected-item-change='ctrl.selectedItemChange(item)'
+                    md-search-text='ctrl.searchText'
+                    md-items='item in ctrl.querySearch(ctrl.searchText)'
+                    md-item-text='item.name'
+                    md-min-length='1'
+                    placeholder='Search for a musician...'
+                    ng-disabled='ctrl.gettingArtistRoviId'
+                    style='margin-top: 80px;'>
+                    <md-item-template>
+                        <span class='item-title'>
+                            <span md-highlight-text='ctrl.searchText' md-highlight-flags='^i' ng-bind='item.name + ":"'></span>
+                        </span>
+                        <span class='item-metadata'>
+                            <span><strong ng-bind='item.followers | number'></strong> Spotify followers</span>
+                        </span>
+                    </md-item-template>
+                    <md-not-found>
+                        <span ng-show='ctrl.searchText' ng-bind='"No musicians matching " + ctrl.searchText + " were found."'></span>
+                    </md-not-found>
+                </md-autocomplete>
+            </md-content>
             <div ng-show='ctrl.gettingArtistRoviId'>
                 <p class='md-title' ng-bind='"Fetching data for " + ctrl.selectedItem.name'></p>
                 <div layout='row' layout-sm='column' layout-align='space-around'>
