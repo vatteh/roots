@@ -11,10 +11,6 @@ import utilsService from '../utilsService';
 let router = express.Router();
 let NUM_HOME_SCREEN_ARTISTS = 5;
 let sampleArtists = [{
-    "name": "Steve Aoki",
-    "id": "MN0001356210",
-    "spotifyId": "77AiFEVeAVj2ORpC85QVJs"
-}, {
     "name": "Justin Bieber",
     "id": "MN0002165952",
     "spotifyId": "1uNFoZAHBGtllmzznpCI3s"
