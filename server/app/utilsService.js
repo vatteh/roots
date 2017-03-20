@@ -6,6 +6,8 @@ import request from 'request-promise-cache';
 import md5 from 'js-md5';
 import roviKeys from './roviKeys';
 
+let CACHE_TTL = 3600000;
+
 function getRoviSig() {
     let unixTimeStamp = Math.floor(Date.now() / 1000);
     return md5(roviKeys.roviApiKey + roviKeys.roviSharedSecret + unixTimeStamp);
@@ -15,7 +17,7 @@ export default {
     getArtistInfluencers: artistId => {
         let url = 'http://api.rovicorp.com/data/v1.1/name/influencers?nameid=' + artistId + '&country=US&language=en&apikey=' + roviKeys.roviApiKey + '&sig=' + getRoviSig();
 
-        return request({ url: url, cacheKey: artistId + '_getArtistInfluences' }).then(response => {
+        return request({ url: url, cacheKey: artistId + '_getArtistInfluences', cacheTTL: CACHE_TTL }).then(response => {
             return JSON.parse(response.body).influencers;
         }).catch(() => {
             console.log('Could not find artist influencers for ' + artistId);
@@ -29,7 +31,7 @@ export default {
             return text.replace(/\[\/?[^\]]+(\])/g, '').replace(' ~ ' + author, '');
         }
 
-        return request({ url: url, cacheKey: artistId + '_getArtistBio' }).then(response => {
+        return request({ url: url, cacheKey: artistId + '_getArtistBio', cacheTTL: CACHE_TTL }).then(response => {
             let roviBioData = JSON.parse(response.body).musicBio;
 
             if (roviBioData.musicBioOverview[0]) {
@@ -50,7 +52,7 @@ export default {
     },
     searchArtistSpotifyData: (artistName, multiple=false) => {
         let url = "https://api.spotify.com/v1/search?q=" + artistName + "&type=artist";
-        return request({ url: url, cacheKey: artistName + '_searchArtistSpotifyData' }).then(response => {
+        return request({ url: url, cacheKey: artistName + '_searchArtistSpotifyData', cacheTTL: CACHE_TTL }).then(response => {
             if (multiple) {
                 return JSON.parse(response.body).artists.items.splice(0, 5);
             } else {
@@ -64,7 +66,7 @@ export default {
     searchArtistRoviData: artistName => {
         let url = 'http://api.rovicorp.com/data/v1.1/name/info?name=' + artistName + '&country=USformat=json&language=en&apikey=' + roviKeys.roviApiKey + '&sig=' + getRoviSig();
 
-        return request({ url: url, cacheKey: artistName + '_searchArtistRoviData' }).then(response => {
+        return request({ url: url, cacheKey: artistName + '_searchArtistRoviData', cacheTTL: CACHE_TTL }).then(response => {
             return JSON.parse(response.body).name;
         }).catch(() => {
             console.log('Could not find artist Rovi ID for ' + artistName);
