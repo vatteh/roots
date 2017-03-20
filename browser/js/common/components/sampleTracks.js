@@ -9,7 +9,7 @@ app.component('sampleTracks', {
         <md-list ng-cloak>
             <div layout='row' class='sample-tracks__container'>
                 <h4 flex class='sample-tracks__title md-title md-no-sticky'>Sample Tracks</h4>
-                <md-switch flex='nogrow' class='sample-tracks__autoplay-switch' ng-model='$ctrl.StateService.autoPlayState'>Autoplay</md-switch>
+                <md-switch flex='nogrow' class='sample-tracks__autoplay-switch' ng-model='$ctrl.StateFactory.autoPlayState'>Autoplay</md-switch>
             </div>
             <md-list-item ng-repeat='track in $ctrl.tracks track by $index' layout='row' layout-align='space-between center' ng-click='$ctrl.playTrack(track, $index)' aria-label='Sample Track'>
                 <img flex='none' ng-src='{{track.image.url}}' class='sample-tracks__image materal-padding'/>
@@ -24,10 +24,10 @@ app.component('sampleTracks', {
             </md-list-item>
         </md-list>
         <audio id='audioTag'></audio>`,
-    controller: function($scope, $sce, $interval, StateService) {
-        this.StateService = StateService;
+    controller: function($scope, $sce, $interval, StateFactory) {
+        this.StateFactory = StateFactory;
         let audioElement = document.getElementById('audioTag');
-        let thisDiscoverStateID = this.StateService.currentDiscoverStateID;
+        let thisDiscoverStateID = this.StateFactory.currentDiscoverStateID;
         let stopFunction;
         audioElement.volume = '0.1';
         audioElement.onwaiting = () => {
@@ -71,8 +71,8 @@ app.component('sampleTracks', {
                     track.progressValue = 0;
 
                     let nextTrackIndex = index + 1;
-                    let currentDiscoverStateID = this.StateService.currentDiscoverStateID;
-                    if (this.StateService.autoPlayState && thisDiscoverStateID === currentDiscoverStateID && this.tracks[nextTrackIndex]) {
+                    let currentDiscoverStateID = this.StateFactory.currentDiscoverStateID;
+                    if (this.StateFactory.autoPlayState && thisDiscoverStateID === currentDiscoverStateID && this.tracks[nextTrackIndex]) {
                         this.playTrack(this.tracks[nextTrackIndex], nextTrackIndex);
                     } 
                 }
@@ -80,7 +80,7 @@ app.component('sampleTracks', {
         };
 
         $scope.$watch(() => this.tracks, () => {
-            if (this.StateService.autoPlayState && this.tracks) {
+            if (this.StateFactory.autoPlayState && this.tracks) {
                 this.playTrack(this.tracks[0], 0);
             }
         }, false);

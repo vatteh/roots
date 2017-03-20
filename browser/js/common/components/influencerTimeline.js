@@ -12,8 +12,8 @@ app.component('influencerTimeline', {
                 </md-button>
             </div>
         </div>`,
-    controller: function($state, $animate, $q, StateService) {
-        this.previousArtists = StateService.previousArtists;
+    controller: function($state, $animate, $q, StateFactory) {
+        this.previousArtists = StateFactory.previousArtists;
         this.selectArtist = (selectedArtist, selectedIndex) => {
             selectedArtist.selected_on_timeline = true;
             let artistButtons = document.getElementsByClassName('artist-timeline-button');

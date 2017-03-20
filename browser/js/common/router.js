@@ -6,9 +6,9 @@ app.config(($stateProvider) => {
         templateUrl: 'js/home/home.html',
         controller: 'HomeController as ctrl',
         resolve: {
-            presentDayArtists: (APIFactory, StateService) => {
-                StateService.previousArtists = [];
-                StateService.currentDiscoverStateID++;
+            presentDayArtists: (APIFactory, StateFactory) => {
+                StateFactory.previousArtists = [];
+                StateFactory.currentDiscoverStateID++;
                 return APIFactory.getPresentDayArtists();
             }
         }
@@ -20,9 +20,9 @@ app.config(($stateProvider) => {
         controller: 'DiscoverController as ctrl',
         params: { 'artistThumbnailInfo': null },
         resolve: {
-            artistDiscoveryInfo: ($stateParams, APIFactory, StateService) => {
+            artistDiscoveryInfo: ($stateParams, APIFactory, StateFactory) => {
                 if ($stateParams.artistThumbnailInfo) {
-                    StateService.currentDiscoverStateID++;
+                    StateFactory.currentDiscoverStateID++;
                     return APIFactory.getArtistData($stateParams.artistThumbnailInfo);
                 } else {
                     return null;

@@ -13,7 +13,7 @@ app.component('influnecers', {
             </div>
             <p ng-if='$ctrl.artists.length === 0'>No influencers found for this artist.</p>
         </div>`,
-    controller: function($scope, $state, $animate, $stateParams, StateService) {
+    controller: function($scope, $state, $animate, $stateParams, StateFactory) {
         this.selectArtist = (selectedArtist, index) => {
             this.artistChosen = true;
             selectedArtist.selected = true;
@@ -22,7 +22,7 @@ app.component('influnecers', {
 
             $animate.addClass(artistContainers[index], 'hide-selected-artist').then(() => {
                 if ($stateParams.artistThumbnailInfo) {
-                    StateService.previousArtists.push(angular.copy($stateParams.artistThumbnailInfo));
+                    StateFactory.previousArtists.push(angular.copy($stateParams.artistThumbnailInfo));
                 }
                 
                 $state.go('discover', { artistThumbnailInfo: selectedArtist });
