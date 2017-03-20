@@ -7,32 +7,30 @@
         </div>
     </div>
 </md-toolbar>
-<md-content layout='row' layout-align='center center'>
-    <div layout='column' class='max-width'>
-        <div flex='nogrow' layout='row' layout-sm='column' layout-xs='column' layout-margin>
-            <md-content flex='70' flex-sm='100' flex-xs='100' class='md-padding md-whiteframe-2dp round-corners' layout='row' layout-xs='column'>
-                <div flex='none' style='margin: 0 auto;'>
-                    <div style='overflow: hidden; text-align: center; width: 250px;'>
-                        <img class='artist-image' ng-src='{{ctrl.artistDiscoveryInfo.data.images[0].url}}' />
-                    </div>
+<md-content layout='column' class='max-width center'>
+    <div flex='auto' layout='row' layout-sm='column' layout-xs='column' layout-margin>
+        <md-content flex='70' flex-sm='100' flex-xs='100' layout='row' layout-xs='column' class='md-padding md-whiteframe-2dp round-corners'>
+            <div flex='none' class='center'>
+                <div style='overflow: hidden; text-align: center; width: 250px;'>
+                    <img class='artist-image' ng-src='{{ctrl.artistDiscoveryInfo.data.images[0].url}}' />
                 </div>
-                <div flex='auto' class='artist-bio' layout-margin>
-                    <p ng-if='ctrl.artistDiscoveryInfo.bio' ng-bind='ctrl.artistDiscoveryInfo.bio.text'></p>
-                    <div class='artist-bio__no-bio' ng-if='!ctrl.artistDiscoveryInfo.bio'>
-                        <div class='artist-bio__no-bio__image'>
-                            <i class='fa fa-4x fa-file-text-o'></i>
-                        </div>
-                        <p ng-bind='ctrl.noBioMessage' class='artist-bio__no-bio__text'></p>
+            </div>
+            <div flex='auto' class='artist-bio' layout-margin>
+                <p ng-if='ctrl.artistDiscoveryInfo.bio' ng-bind='ctrl.artistDiscoveryInfo.bio.text'></p>
+                <div class='artist-bio__no-bio' ng-if='!ctrl.artistDiscoveryInfo.bio'>
+                    <div class='artist-bio__no-bio__image'>
+                        <i class='fa fa-4x fa-file-text-o'></i>
                     </div>
+                    <p ng-bind='ctrl.noBioMessage' class='artist-bio__no-bio__text'></p>
                 </div>
-            </md-content>
-            <md-content flex='30' flex-sm='100' flex-xs='100' class='md-padding md-whiteframe-2dp round-corners'>
-                <sample-tracks tracks='ctrl.artistDiscoveryInfo.topTracks'></sample-tracks>
-            </md-content>
-        </div>
-        <div flex='initial'>
-            <h4 class='md-title' style='text-align: center; margin: 0'>Influencers</h4>
-            <influnecers artists='ctrl.influencers'></influnecers>
-        </div>
+            </div>
+        </md-content>
+        <md-content flex='30' flex-sm='100' flex-xs='100' class='md-padding md-whiteframe-2dp round-corners'>
+            <sample-tracks tracks='ctrl.artistDiscoveryInfo.topTracks' style='width: 100%;'></sample-tracks>
+        </md-content>
+    </div>
+    <div flex='initial'>
+        <h4 class='md-title' style='text-align: center; margin: 0'>Influencers</h4>
+        <influnecers artists='ctrl.influencers'></influnecers>
     </div>
 </md-content>
