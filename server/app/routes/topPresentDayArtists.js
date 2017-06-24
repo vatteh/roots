@@ -71,7 +71,8 @@ router.get('/', (req, res) => {
         chosenArtists.push(sampleArtists[i]);
 
         let url = 'https://api.spotify.com/v1/artists/' + sampleArtists[i].spotifyId;
-        promises.push(request({ url: url, cacheKey: sampleArtists[i].spotifyId + '_getTopPresentDayArtists'}));
+        let cacheKey = sampleArtists[i].spotifyId + '_getTopPresentDayArtists';
+        promises.push(utilsService.makeAuthorizedSpotifyCall(url, cacheKey));
     }
 
     Q.all(promises).then(data => {

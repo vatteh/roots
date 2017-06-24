@@ -60,5 +60,8 @@
     "serve-favicon": "^2.2.0",
     "sinon": "^1.13.0",
     "supertest": "^0.15.0"
+  },
+  "devDependencies": {
+    "phantomjs-polyfill": "0.0.2"
   }
 }

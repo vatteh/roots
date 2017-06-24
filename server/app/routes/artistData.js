@@ -12,7 +12,8 @@ let router = express.Router();
 
 function getTopTracks(spotifyID) {
     let url = "https://api.spotify.com/v1/artists/" + spotifyID + "/top-tracks?country=US";
-    return request({ url: url, cacheKey: spotifyID + '_getTopTracks'}).then(response => {
+    let cacheKey = spotifyID + '_getTopTracks';
+    return utilsService.makeAuthorizedSpotifyCall(url, cacheKey).then(response => {
         let topTracks = JSON.parse(response.body).tracks;
         let pickedTracks = [];
 
@@ -38,8 +39,8 @@ function getTopTracks(spotifyID) {
 // Given a roviID, name, & spotifyID, return artist info, tracks, & bio
 router.get('/', (req, res) => {
     Q.all([
-        utilsService.searchArtistSpotifyData(req.query.name), 
-        getTopTracks(req.query.spotifyID), 
+        utilsService.searchArtistSpotifyData(req.query.name),
+        getTopTracks(req.query.spotifyID),
         utilsService.getArtistBio(req.query.roviID)
     ]).then(data => {
         res.json({
