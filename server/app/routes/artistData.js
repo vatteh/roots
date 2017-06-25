@@ -3,7 +3,6 @@
 'use strict';
 
 import express from 'express';
-import request from 'request-promise-cache';
 import Q from 'q';
 
 import utilsService from '../utilsService';
@@ -14,9 +13,9 @@ function getTopTracks(spotifyID) {
     let url = "https://api.spotify.com/v1/artists/" + spotifyID + "/top-tracks?country=US";
     let cacheKey = spotifyID + '_getTopTracks';
     return utilsService.makeAuthorizedSpotifyCall(url, cacheKey).then(response => {
-        let topTracks = JSON.parse(response.body).tracks;
-        let pickedTracks = [];
+        let topTracks = JSON.parse(response.body).tracks.filter(track => track.preview_url);
 
+        let pickedTracks = [];
         for (let i = 0; i < 3; i++) {
             if (topTracks.length) {
                 pickedTracks.push(utilsService.removeRandomElement(topTracks));

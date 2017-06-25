@@ -3,7 +3,6 @@
 'use strict';
 
 import express from 'express';
-import request from 'request-promise-cache';
 import Q from 'q';
 
 import utilsService from '../utilsService';

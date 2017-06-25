@@ -22,6 +22,7 @@ app.component('sampleTracks', {
                     <md-progress-circular md-mode='determinate' value='{{track.progressValue}}' md-diameter='64' class='fade' ng-show='track.isPlaying'></md-progress-circular>
                 </div>
             </md-list-item>
+            <h6 ng-show='!$ctrl.tracks.length' class='md-subhead center-text'>No tracks available at this time</h6>
         </md-list>
         <audio id='audioTag'></audio>`,
     controller: function($scope, $sce, $interval, StateFactory) {
@@ -40,8 +41,11 @@ app.component('sampleTracks', {
                 selectedTrack.progressValue = 0;
                 $interval.cancel(stopFunction);
             } else {
-                audioElement.src = $sce.trustAsResourceUrl(selectedTrack.previewUrl);
-                audioElement.play();
+                if (selectedTrack.previewUrl) {
+                  audioElement.src = $sce.trustAsResourceUrl(selectedTrack.previewUrl);
+                  audioElement.play();
+                }
+
                 this.tracks.forEach((track, index)=> {
                     if (index === selectedIndex) {
                         track.progressValue = 0;
@@ -74,13 +78,13 @@ app.component('sampleTracks', {
                     let currentDiscoverStateID = this.StateFactory.currentDiscoverStateID;
                     if (this.StateFactory.autoPlayState && thisDiscoverStateID === currentDiscoverStateID && this.tracks[nextTrackIndex]) {
                         this.playTrack(this.tracks[nextTrackIndex], nextTrackIndex);
-                    } 
+                    }
                 }
             }, 100);
         };
 
         $scope.$watch(() => this.tracks, () => {
-            if (this.StateFactory.autoPlayState && this.tracks) {
+            if (this.StateFactory.autoPlayState && this.tracks && this.tracks.length) {
                 this.playTrack(this.tracks[0], 0);
             }
         }, false);

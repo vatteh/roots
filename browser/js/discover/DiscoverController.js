@@ -4,7 +4,7 @@ app.controller('DiscoverController', function($stateParams, $state, APIFactory, 
     if (!artistDiscoveryInfo) {
         $state.go('home');
     } else {
-        this.noBioMessage = 'No bio was found for this artist.';
+        this.noBioMessage = 'No bio found for this artist.';
         this.artistDiscoveryInfo = artistDiscoveryInfo;
 
         this.getInfluencers = () => {
